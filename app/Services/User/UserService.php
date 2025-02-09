@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Dto\UserStoreDto;
+use App\Dto\User\UserStoreDto;
 use App\Models\User;
-use App\Services\Contracts\UserServiceInterface;
+use App\Services\User\Contracts\UserServiceInterface;
+use Illuminate\Support\Facades\Hash;
 
-class UserService implements UserServiceInterface
+final class UserService implements UserServiceInterface
 {
     public function store(UserStoreDto $userStoreDto): ?User
     {
         return User::create([
             'name'     => $userStoreDto->name,
             'email'    => $userStoreDto->email,
-            'password' => $userStoreDto->password,
+            'password' => Hash::make($userStoreDto->password),
         ]);
     }
 }

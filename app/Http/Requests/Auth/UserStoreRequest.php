@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $email
  * @property string $password
  */
-class UserStoreRequest extends FormRequest
+final class UserStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

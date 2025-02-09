@@ -1,0 +1,45 @@
+.user-menu__logged {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-menu__logged .user-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 100%;
+    background-color: #fff;
+}
+
+.user-menu__logged .user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.user-menu__logged .user-menu__data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 46px;
+    margin-left: 15px;
+}
+
+.user-menu__logged .user-menu__data .user-name {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    float: none;
+}
+
+.user-menu__logged .user-menu__data .help-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+

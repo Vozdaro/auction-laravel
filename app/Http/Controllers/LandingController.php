@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\View\View;
 
-class LandingController extends Controller
+final class LandingController extends Controller
 {
-    public function landing(): View
+    public function __construct(
+        public LotServiceInterface $lotService,
+    ) {
+    }
+
+    public function __invoke(): View
     {
-        return view('base.landing', [
+        return view('landing.index', [
             'pageTitle' => 'Главная',
+            'lots'      => $this->lotService->getAll(),
         ]);
     }
 }

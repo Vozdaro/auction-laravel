@@ -8,20 +8,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class EmailVerificationController extends Controller
+final class EmailVerificationController extends Controller
 {
-    public function notice(): View
+    public function notice(): string
     {
-        return view('auth.verify-email');
+        return '123';
     }
 
     public function verify(EmailVerificationRequest $request): RedirectResponse
     {
         $request->fulfill();
 
-        return to_route('auth.create');
+        return to_route('auth.login');
     }
 
     public function send(Request $request): RedirectResponse

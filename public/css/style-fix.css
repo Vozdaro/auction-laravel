@@ -1,0 +1,5 @@
+.form__item--invalid textarea,
+.form__item--invalid input {
+    background: #ffffff url("../img/error.svg") 97% 11px no-repeat;
+    border-color: #f84646 !important;
+}

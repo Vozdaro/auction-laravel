@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Dto;
+namespace App\Dto\User;
 
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\Auth\UserStoreRequest;
 
-readonly class UserStoreDto
+final readonly class UserStoreDto
 {
     public function __construct(
         public string $name,
@@ -15,7 +15,7 @@ readonly class UserStoreDto
     ) {
     }
 
-    public static function fromeRequest(UserStoreRequest $request): self
+    public static function fromRequest(UserStoreRequest $request): self
     {
         return new UserStoreDto(
             $request->name,
