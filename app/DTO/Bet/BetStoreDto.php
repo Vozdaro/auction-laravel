@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Bet;
+namespace App\DTO\Bet;
 
 use App\Http\Requests\Bet\BetStoreRequest;
 

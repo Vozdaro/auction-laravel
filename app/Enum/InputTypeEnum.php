@@ -6,9 +6,11 @@ namespace App\Enum;
 
 enum InputTypeEnum: string
 {
-    case Text = 'text';
-    case Number = 'number';
-    case File = 'file';
     case Date = 'date';
+    case Email = 'email';
+    case File = 'file';
+    case Number = 'number';
+    case Password = 'password';
     case Submit = 'submit';
+    case Text = 'text';
 }

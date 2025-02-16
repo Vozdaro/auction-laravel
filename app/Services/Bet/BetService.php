@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Bet;
 
-use App\Dto\Bet\BetStoreDto;
+use App\DTO\Bet\BetStoreDto;
 use App\Models\Bet;
 use App\Services\Bet\Contracts\BetServiceInterface;
 use Illuminate\Database\Eloquent\Collection;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Category;
 
-use App\Dto\Category\CategoryStoreDto;
+use App\DTO\Category\CategoryStoreDto;
 use App\Models\Category;
 use App\Services\Category\Contracts\CategoryServiceInterface;
 use Illuminate\Database\Eloquent\Collection;

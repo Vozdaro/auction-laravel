@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @property string $email
- * @property string $password
+ * @property string $passwordFlash
  */
 final class UserLoginRequest extends FormRequest
 {
@@ -29,8 +29,8 @@ final class UserLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'    => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'email'         => ['required', 'email'],
+            'passwordFlash' => ['required', 'string'],
         ];
     }
 }

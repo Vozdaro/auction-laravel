@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Dto\Lot\LotStoreDto;
+use App\DTO\Lot\LotStoreDto;
 use App\Http\Requests\Lot\LotStoreRequest;
 use App\Models\Lot;
 use App\Models\User;

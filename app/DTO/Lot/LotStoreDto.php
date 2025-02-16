@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Lot;
+namespace App\DTO\Lot;
 
 use App\Http\Requests\Lot\LotStoreRequest;
 use App\Models\User;

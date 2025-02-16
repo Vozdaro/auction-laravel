@@ -16,6 +16,7 @@ use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\Password;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,19 @@ final class AppServiceProvider extends ServiceProvider
     {
         Gate::define('store-bet', function (User $user, Lot $lot) {
             return $user->id !== $lot->user_id;
+        });
+
+        Password::defaults(function () {
+            $rule = Password::min(8);
+
+            return $this->app->isProduction()
+                ? $rule
+                    ->uncompromised()
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                : $rule;
         });
     }
 }

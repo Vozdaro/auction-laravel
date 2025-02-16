@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Lot;
 
-use App\Dto\Lot\LotStoreDto;
+use App\DTO\Lot\LotStoreDto;
 use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Database\Eloquent\Collection;

@@ -30,7 +30,7 @@ final class AutenticatedSessionController extends Controller
     {
         $credentials = [
             'email'    => $request->email,
-            'password' => $request->password,
+            'password' => $request->passwordFlash,
         ];
 
         if (Auth::attempt($credentials)) {

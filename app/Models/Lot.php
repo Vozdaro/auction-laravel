@@ -25,9 +25,6 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property Bet[]    $bets
  * @property Category $category
- *
- * @method static Lot|null create(array $data)
- * @method static Lot|null find(mixed $id, array|string $columns = ['*'])
  */
 final class Lot extends Model
 {

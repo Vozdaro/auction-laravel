@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Dto\Bet\BetStoreDto;
+use App\DTO\Bet\BetStoreDto;
 use App\Http\Requests\Bet\BetStoreRequest;
 use App\Models\Lot;
 use App\Services\Bet\Contracts\BetServiceInterface;
