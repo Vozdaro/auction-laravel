@@ -40,14 +40,14 @@ use App\Enum\InputTypeEnum;
             @enderror
         </div>
 
-        @php $key = 'password'; @endphp
+        @php $key = 'passwordFlash'; @endphp
         <div class="form__item form__item--last @error($key) form__item--invalid @enderror">
             <label for="{{ $key }}">Пароль <sup>*</sup></label>
             <input
                 id="{{ $key }}"
                 type="{{ InputTypeEnum::Password->value }}"
                 name="{{ $key }}"
-                value="{{ old('email') }}"
+                value="{{ old($key) }}"
                 placeholder="Введите пароль"
                 readonly
                 onfocus="this.removeAttribute('readonly')"
