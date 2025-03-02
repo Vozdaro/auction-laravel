@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Auth;
 final class Lot extends Model
 {
     /**
+     * @var string
+     */
+    public const IMAGE_KEY = 'image';
+
+    /**
      * The table associated with the model.
      *
      * @var string

@@ -8,6 +8,12 @@ use App\Http\Requests\Auth\UserStoreRequest;
 
 final readonly class UserStoreDto
 {
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @param string $contact_info
+     */
     public function __construct(
         public string $name,
         public string $email,
@@ -22,7 +28,7 @@ final readonly class UserStoreDto
      */
     public static function fromRequest(UserStoreRequest $request): self
     {
-        return new UserStoreDto(
+        return new self(
             $request->name,
             $request->email,
             $request->passwordFlash,

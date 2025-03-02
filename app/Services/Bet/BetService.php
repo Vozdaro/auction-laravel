@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class BetService implements BetServiceInterface
 {
-    public function store(BetStoreDto $betStoreDto): ?Bet
+    public function store(BetStoreDto $betStoreDto): Bet
     {
         return Bet::create([
             'amount'  => $betStoreDto->amount,

@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\View\View;
 
-final class LandingController extends Controller
+final class LandingController extends AbstractController
 {
     public function __construct(
         public LotServiceInterface $lotService,

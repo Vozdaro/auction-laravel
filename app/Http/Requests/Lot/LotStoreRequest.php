@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Lot;
 
+use App\Models\Lot;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\File;
@@ -34,13 +35,18 @@ final class LotStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['required', 'string', 'min:10', 'max:30'],
-            'description' => ['required', 'string', 'min:10', 'max:2000'],
-            'start_price' => ['required', 'integer', 'min:1', 'max:1000000'],
-            'bet_step'    => ['required', 'integer', 'min:1', 'max:1000000'],
-            'deadline'    => ['required', 'date'],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'image'       => ['required', File::image()->max(3 * 1024)->extensions(['png', 'jpeg', 'jpg', 'webm'])],
+            'title'        => ['required', 'string', 'min:10', 'max:30'],
+            'description'  => ['required', 'string', 'min:10', 'max:2000'],
+            'start_price'  => ['required', 'integer', 'min:1', 'max:1000000'],
+            'bet_step'     => ['required', 'integer', 'min:1', 'max:1000000'],
+            'deadline'     => ['required', 'date'],
+            'category_id'  => ['required', 'integer', 'exists:categories,id'],
+            Lot::IMAGE_KEY => [
+                'required',
+                File::image()
+                    ->max(3 * 1024)
+                    ->extensions(['png', 'jpeg', 'jpg', 'webm'])
+            ],
         ];
     }
 }

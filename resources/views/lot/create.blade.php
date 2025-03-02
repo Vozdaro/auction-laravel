@@ -8,6 +8,7 @@ use App\Enum\FormEnctypeEnum;
 use App\Enum\HttpMethodEnum;
 use App\Enum\InputTypeEnum;
 use App\Models\Category;
+use App\Models\Lot;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\MessageBag;
 
@@ -83,7 +84,7 @@ use Illuminate\Support\MessageBag;
             @enderror
         </div>
 
-        @php $key = 'image'; @endphp
+        @php $key = Lot::IMAGE_KEY; @endphp
         <div class="form__item form__item--file @error($key) form__item--invalid @enderror">
             <label>Изображение <sup>*</sup></label>
             <div class="form__input-file">

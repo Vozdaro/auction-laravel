@@ -4,12 +4,24 @@ declare(strict_types=1);
 
 namespace App\DTO\Lot;
 
+use App\Exceptions\Lot\LotImageRequiredException;
 use App\Http\Requests\Lot\LotStoreRequest;
+use App\Models\Lot;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
 final readonly class LotStoreDto
 {
+    /**
+     * @param string $title
+     * @param string $description
+     * @param int $startPrice
+     * @param int $betStep
+     * @param string $deadline
+     * @param int $categoryId
+     * @param UploadedFile $image
+     * @param User $user
+     */
     public function __construct(
         public string       $title,
         public string       $description,
@@ -22,16 +34,26 @@ final readonly class LotStoreDto
     ) {
     }
 
-    public static function fromRequest(LotStoreRequest $request, UploadedFile $image, User $user): self
+    /**
+     * @param LotStoreRequest $request
+     * @param User $user
+     * @return self
+     * @throws LotImageRequiredException
+     */
+    public static function fromRequest(LotStoreRequest $request, User $user): self
     {
-        return new LotStoreDto(
+        if (!$request->hasFile(Lot::IMAGE_KEY)) {
+            throw new LotImageRequiredException();
+        }
+
+        return new self(
             $request->title,
             $request->description,
             intval($request->start_price),
             intval($request->bet_step),
             $request->deadline,
             intval($request->category_id),
-            $image,
+            $request->allFiles()[Lot::IMAGE_KEY],
             $user,
         );
     }

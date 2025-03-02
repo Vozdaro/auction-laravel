@@ -12,9 +12,10 @@ use App\Services\Category\Contracts\CategoryServiceInterface;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-final class LotController extends Controller
+final class LotController extends AbstractController
 {
     public function __construct(
         protected LotServiceInterface $lotService,
@@ -38,10 +39,9 @@ final class LotController extends Controller
         ]);
     }
 
-    public function store(LotStoreRequest $request, Authenticatable $user): RedirectResponse
+    public function store(LotStoreRequest $request): RedirectResponse
     {
-        /** @var User $user */
-        $lotStoreDto = LotStoreDto::fromRequest($request, $request->file('image'), $user);
+        $lotStoreDto = LotStoreDto::fromRequest($request, $this->getUser($request));
         $this->lotService->store($lotStoreDto);
 
         return to_route('base.landing');

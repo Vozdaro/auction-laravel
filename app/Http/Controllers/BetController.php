@@ -8,26 +8,39 @@ use App\DTO\Bet\BetStoreDto;
 use App\Http\Requests\Bet\BetStoreRequest;
 use App\Models\Lot;
 use App\Services\Bet\Contracts\BetServiceInterface;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-final class BetController extends Controller
+final class BetController extends AbstractController
 {
+    /**
+     * @param BetServiceInterface $betService
+     */
     public function __construct(
         protected BetServiceInterface $betService,
     ) {
     }
 
-    public function index(Authenticatable $user): View
+    /**
+     * @param Request $request
+     * @return View
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    public function index(Request $request): View
     {
         return view('bet.index', [
             'pageTitle' => 'Мои ставки',
-            'bets'      => $this->betService->getAllByUserId($user->id),
+            'bets'      => $this->betService->getAllByUserId($this->getUser($request)->id),
         ]);
     }
 
+    /**
+     * @param BetStoreRequest $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
     public function store(BetStoreRequest $request): RedirectResponse
     {
         Gate::authorize('store-bet', [Lot::find($request->lot_id)]);

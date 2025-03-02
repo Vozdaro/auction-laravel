@@ -19,10 +19,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property Lot    $lot
  * @property User   $user
- *
- * @method static Bet|null create(array $data)
- * @method static Collection get()
- * @method static $this where($column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
  */
 final class Bet extends Model
 {
@@ -51,6 +47,7 @@ final class Bet extends Model
     {
         return $this->hasOne(Lot::class, 'id', 'lot_id');
     }
+
     /**
      * Get the user associated with the bet.
      */
