@@ -7,12 +7,9 @@ namespace App\Http\Controllers;
 use App\DTO\Lot\LotStoreDto;
 use App\Http\Requests\Lot\LotStoreRequest;
 use App\Models\Lot;
-use App\Models\User;
 use App\Services\Category\Contracts\CategoryServiceInterface;
 use App\Services\Lot\Contracts\LotServiceInterface;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 final class LotController extends AbstractController
