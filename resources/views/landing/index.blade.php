@@ -1,8 +1,10 @@
 @php
 
+/** @var ?Collection $categories */
 /** @var Collection $lots */
 /** @var string     $pageTitle */
 
+use App\Models\Category;
 use App\Models\Lot;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -14,24 +16,12 @@ use Illuminate\Database\Eloquent\Collection;
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное
             снаряжение.</p>
         <ul class="promo__list">
-            <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="#">Доски и лыжи</a>
-            </li>
-            <li class="promo__item promo__item--attachment">
-                <a class="promo__link" href="#">Крепления</a>
-            </li>
-            <li class="promo__item promo__item--boots">
-                <a class="promo__link" href="#">Ботинки</a>
-            </li>
-            <li class="promo__item promo__item--clothing">
-                <a class="promo__link" href="#">Одежда</a>
-            </li>
-            <li class="promo__item promo__item--tools">
-                <a class="promo__link" href="#">Инструменты</a>
-            </li>
-            <li class="promo__item promo__item--other">
-                <a class="promo__link" href="#">Разное</a>
-            </li>
+            @foreach($categories ?? [] as $category)
+                @php /** @var Category $category */ @endphp
+                <li class="promo__item promo__item--{{ $category->inner_code }}">
+                    <a class="promo__link" href="#">{{ $category->name }}</a>
+                </li>
+            @endforeach
         </ul>
     </section>
 
