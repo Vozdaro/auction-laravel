@@ -7,7 +7,20 @@ use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotController;
 
-Route::get('/', LandingController::class)->name('base.landing');
+Route::middleware([])->group(function () {
+    Route::controller(LandingController::class)->group(function () {
+        Route::name('base.')->group(function () {
+            Route::get('/', 'index')->name('landing');
+            Route::get('/search', 'search')->name('search');
+        });
+    });
+
+    Route::controller(LotController::class)->group(function () {
+        Route::name('lot.')->group(function () {
+            Route::get('/lots', 'index')->name('index');
+        });
+    });
+});
 
 Route::middleware(['auth:web', 'verified'])->group(function () {
     Route::controller(LotController::class)->group(function () {

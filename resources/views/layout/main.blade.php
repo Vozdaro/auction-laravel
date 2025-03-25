@@ -28,10 +28,10 @@ use Illuminate\Support\Facades\Route;
                 <a class="main-header__logo" href="{{ route('base.landing') }}">
                     <img src="{{ asset('img/logo.svg') }}" width="160" height="39" alt="Логотип компании {{ config('app.name') }}">
                 </a>
-                <form class="main-header__search" method="get" action="" autocomplete="off">
+                <form class="main-header__search" method="get" action="{{ route('base.search') }}" autocomplete="off">
                     <!--suppress HtmlFormInputWithoutLabel -->
-                    <input type="search" name="search" placeholder="Поиск лота">
-                    <input class="main-header__search-btn" type="submit" name="find" value="Найти">
+                    <input type="search" name="text" placeholder="Поиск лота">
+                    <input class="main-header__search-btn" type="submit" value="Найти">
                 </form>
                 <a class="main-header__add-lot button" href="{{ route('lot.create') }}">Добавить лот</a>
                 <nav class="user-menu">

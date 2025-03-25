@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
             @foreach($categories ?? [] as $category)
                 @php /** @var Category $category */ @endphp
                 <li class="promo__item promo__item--{{ $category->inner_code }}">
-                    <a class="promo__link" href="#">{{ $category->name }}</a>
+                    <a class="promo__link" href="{{ route('lot.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
                 </li>
             @endforeach
         </ul>

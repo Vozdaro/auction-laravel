@@ -11,5 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 interface LotServiceInterface
 {
     public function getAll(): Collection;
+
+    public function getByCategoryId(int $id): Collection;
+
     public function store(LotStoreDto $lotStoreDto): ?Lot;
 }

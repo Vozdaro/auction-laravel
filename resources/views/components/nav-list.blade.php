@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
         @foreach($categories ?? [] as $category)
             @php /** @var Category $category */ @endphp
             <li class="nav__item">
-                <a href="#">{{ $category->name }}</a>
+                <a href="{{ route('lot.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
             </li>
         @endforeach
 
