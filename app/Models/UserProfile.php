@@ -24,7 +24,7 @@ final class UserProfile extends Model
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'user_profiles';
 
     /**
      * The attributes that are mass assignable.

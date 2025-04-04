@@ -35,4 +35,14 @@ final readonly class UserStoreDto
             $request->contact_info,
         );
     }
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data['name'],
+            $data['email'],
+            $data['password'],
+            $data['contact_info']
+        );
+    }
 }
