@@ -8,6 +8,7 @@ use App\Exceptions\Lot\LotImageRequiredException;
 use App\Http\Requests\Lot\LotStoreRequest;
 use App\Models\Lot;
 use App\Models\User;
+use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
 
 final readonly class LotStoreDto
@@ -29,7 +30,7 @@ final readonly class LotStoreDto
         public int          $betStep,
         public string       $deadline,
         public int          $categoryId,
-        public UploadedFile $image,
+        public File|UploadedFile $image,
         public User         $user,
     ) {
     }
@@ -54,6 +55,20 @@ final readonly class LotStoreDto
             $request->deadline,
             intval($request->category_id),
             $request->allFiles()[Lot::IMAGE_KEY],
+            $user,
+        );
+    }
+
+    public static function fromArray(array $data, File $image, User $user): self
+    {
+        return new self(
+            $data['title'],
+            $data['description'],
+            $data['start_price'],
+            $data['bet_step'],
+            $data['deadline'],
+            $data['category_id'],
+            $image,
             $user,
         );
     }

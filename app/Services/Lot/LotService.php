@@ -8,9 +8,12 @@ use App\DTO\Lot\LotStoreDto;
 use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 final class LotService implements LotServiceInterface
 {
+    private const LOT_PATH_PREFIX = 'public/lots/%s';
     public function getAll(): Collection
     {
         return Lot::all();
@@ -23,7 +26,13 @@ final class LotService implements LotServiceInterface
 
     public function store(LotStoreDto $lotStoreDto): ?Lot
     {
-        $imagePath = $lotStoreDto->image->store('lots/' . $lotStoreDto->user->id);
+        $pathPrefix = sprintf(self::LOT_PATH_PREFIX, $lotStoreDto->user->id);
+
+        if ($lotStoreDto->image instanceof UploadedFile) {
+            $imagePath = $lotStoreDto->image->store($pathPrefix);
+        } else {
+            $imagePath = Storage::putFile($pathPrefix, $lotStoreDto->image);
+        }
 
         return Lot::create([
             'title'       => $lotStoreDto->title,
