@@ -21,7 +21,7 @@ final class LandingController extends AbstractController
     {
         return view('landing.index', [
             'pageTitle'  => 'Главная',
-            'lots'       => $this->lotService->getAll(),
+            'lots'       => $this->lotService->getAll(true),
             'categories' => $this->categoryService->getAll(),
         ]);
     }
@@ -31,9 +31,9 @@ final class LandingController extends AbstractController
         $q = $request->get('text');
 
         return view('lot.search', [
-            'pageTitle'  => 'Главная',
-            'lots'       => $this->lotService->getLotBySearchQuery($q),
-            'query' => $q,
+            'pageTitle' => 'Главная',
+            'lots'      => $this->lotService->getLotBySearchQuery($q),
+            'query'     => $q,
         ]);
 
     }

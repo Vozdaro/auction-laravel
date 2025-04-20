@@ -7,10 +7,15 @@ namespace App\Services\Lot\Contracts;
 use App\DTO\Lot\LotStoreDto;
 use App\Models\Lot;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface LotServiceInterface
 {
-    public function getAll(): Collection;
+    /**
+     * @param bool $paginate
+     * @return Collection|LengthAwarePaginator
+     */
+    public function getAll(bool $paginate = false): Collection|LengthAwarePaginator;
 
     public function getByCategoryId(int $id): Collection;
 

@@ -9,13 +9,23 @@ use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 
 final class LotService implements LotServiceInterface
 {
     private const LOT_PATH_PREFIX = 'public/lots/%s';
-    public function getAll(): Collection
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getAll(bool $paginate = false): Collection|LengthAwarePaginator
     {
+        if ($paginate) {
+            return Lot::paginate(config('app.pagination.per_page'));
+        }
+
         return Lot::all();
     }
 

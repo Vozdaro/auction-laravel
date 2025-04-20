@@ -1,20 +1,20 @@
 @php
 
-/** @var ?Collection $categories */
-/** @var Collection $lots */
-/** @var string     $pageTitle */
+/** @var ?Collection          $categories */
+/** @var LengthAwarePaginator $lots */
+/** @var string               $pageTitle */
 
 use App\Models\Category;
 use App\Models\Lot;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 @endphp
 @extends('layout.main')
 @section('content')
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
-        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное
-            снаряжение.</p>
+        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
             @foreach($categories ?? [] as $category)
                 @php /** @var Category $category */ @endphp
@@ -61,4 +61,6 @@ use Illuminate\Database\Eloquent\Collection;
 
         </ul>
     </section>
+
+    {{ $lots->links('pagination.custom') }}
 @endsection
