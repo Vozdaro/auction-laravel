@@ -12,15 +12,15 @@ final class UserSeeder extends Seeder
 {
     private const USERS = [
         [
-            'name' => 'admin1',
-            'email' => 'admin1@gmail.com',
-            'password' => '123',
+            'name'         => 'admin1',
+            'email'        => 'admin1@gmail.com',
+            'password'     => '123',
             'contact_info' => 'contact 1'
         ],
         [
-            'name' => 'admin2',
-            'email' => 'admin2@gmail.com',
-            'password' => '123',
+            'name'         => 'admin2',
+            'email'        => 'admin2@gmail.com',
+            'password'     => '123',
             'contact_info' => 'contact 2'
         ],
     ];

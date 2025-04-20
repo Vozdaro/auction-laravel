@@ -20,13 +20,13 @@ final class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         $user = User::create([
-            'name'         => $userStoreDto->name,
-            'email'        => $userStoreDto->email,
-            'password'     => $userStoreDto->password
+            'name'     => $userStoreDto->name,
+            'email'    => $userStoreDto->email,
+            'password' => $userStoreDto->password
         ]);
 
         $userProfile = UserProfile::create([
-            'user_id' => $user->id,
+            'user_id'      => $user->id,
             'contact_info' => $userStoreDto->contact_info
         ]);
         DB::commit();

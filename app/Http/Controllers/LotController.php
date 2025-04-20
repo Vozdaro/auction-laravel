@@ -75,5 +75,4 @@ final class LotController extends AbstractController
 
         return to_route('base.landing');
     }
-
 }
