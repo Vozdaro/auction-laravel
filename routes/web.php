@@ -23,18 +23,20 @@ Route::middleware([])->group(function () {
     });
 });
 
-Route::middleware(['auth:web', 'verified'])->group(function () {
-    Route::controller(LotController::class)->group(function () {
-        Route::name('lot.')->group(function () {
-            Route::get('/add-lot', 'create')->name('create');
-            Route::post('/add-lot', 'store')->name('store');
+Route::middleware(['auth:web'])->group(function () {
+    Route::middleware(['verified'])->group(function () {
+        Route::controller(LotController::class)->group(function () {
+            Route::name('lot.')->group(function () {
+                Route::get('/add-lot', 'create')->name('create');
+                Route::post('/add-lot', 'store')->name('store');
+            });
         });
-    });
 
-    Route::controller(BetController::class)->group(function () {
-        Route::name('bet.')->group(function () {
-            Route::get('/bets', 'index')->name('index');
-            Route::post('/bets', 'store')->name('store');
+        Route::controller(BetController::class)->group(function () {
+            Route::name('bet.')->group(function () {
+                Route::get('/bets', 'index')->name('index');
+                Route::post('/bets', 'store')->name('store');
+            });
         });
     });
 });

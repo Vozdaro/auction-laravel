@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Bet;
 
+use App\Models\Lot;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,9 +29,21 @@ final class BetStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'amount' => ['required', 'integer', 'min:1'],
+        $rules = [
+            'amount' => ['required', 'integer'],
             'lot_id' => ['required', 'integer', 'exists:lots,id'],
         ];
+
+        if ($lot = $this->getLotById()) {
+            $rules['amount'][] = "min:{$lot->calcBetStep()}";
+        }
+
+        return $rules;
+
+    }
+
+    private function getLotById(): ?Lot
+    {
+        return Lot::find($this->lot_id)->get()[0] ?? null;
     }
 }

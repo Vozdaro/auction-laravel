@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Traits\PluralTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Auth;
  */
 final class Lot extends Model
 {
+    use PluralTrait;
+
     /**
      * @var string
      */
@@ -99,4 +102,24 @@ final class Lot extends Model
             get: fn (int $value) => number_format($value, thousands_separator: ' '),
         );
     }
+
+    public function calcBetStep(): int
+    {
+        return $this->calcStartPrice() + $this->bet_step;
+    }
+
+    public function calcStartPrice(): int | string
+    {
+        if ($this->bets->count()) {
+            return $this->bets->max('amount');
+        } else {
+            return $this->start_price;
+        }
+    }
+
+    public function getLastBet(): ?Bet
+    {
+        return $this->bets[$this->bets->count() - 1] ?? null;
+    }
+
 }

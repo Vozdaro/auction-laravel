@@ -54,14 +54,4 @@ final class Bet extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
-
-    /**
-     * Get the lot's start price.
-     */
-    protected function amount(): Attribute
-    {
-        return Attribute::make(
-            get: fn (int $value) => number_format($value, thousands_separator: ' '),
-        );
-    }
 }

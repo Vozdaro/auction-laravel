@@ -8,11 +8,12 @@ use App\Models\Lot;
 use App\Enum\FormEnctypeEnum;
 use App\Enum\HttpMethodEnum;
 use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Auth;
+
 
 @endphp
 @extends('layout.main')
 @section('content')
+
     <section class="lot-item container">
         <h2>{{ $lot->title }}</h2>
         <div class="lot-item__content">
@@ -35,14 +36,15 @@ use Illuminate\Support\Facades\Auth;
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Текущая цена</span>
-                            <span class="lot-item__cost">{{ $lot->start_price }}</span>
+                            <span class="lot-item__cost">{{ number_format($lot->calcStartPrice(), 0, '.', ' ') }}</span>
                         </div>
                         <div class="lot-item__min-cost">
-                            Мин. ставка <span>{{ $lot->bet_step }} р</span>
+                            Мин. ставка <span>{{ number_format($lot->calcBetStep(), 0, '.', ' ') }} р</span>
                         </div>
                     </div>
 
-                    @if(Auth::check() && !$lot->isOwnerCurrentUser());
+{{--                    @if(Auth::check() && Auth::user()->hasVerifiedEmail() && !$lot->isOwnerCurrentUser() && ($lot->getLastBet()?->user_id !== Auth::id()));--}}
+                        @can('store-bet', $lot)
                         <form
                             class="lot-item__form {{ $errors->any() ? ' form--invalid' : '' }}"
                             action="{{ route('bet.store') }}"
@@ -73,8 +75,8 @@ use Illuminate\Support\Facades\Auth;
                                 style="align-self: flex-start; margin-top: 24px; cursor: pointer;"
                             >Сделать ставку</button>
                         </form>
-                    @endif
-
+{{--                    @endif--}}
+                        @endcan
                 </div>
                 <div class="history">
                     <h3>История ставок (<span>{{ $lot->bets->count() }}</span>)</h3>

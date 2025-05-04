@@ -39,7 +39,11 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('store-bet', function (User $user, Lot $lot) {
-            return $user->id !== $lot->user_id;
+            $lastBet = $lot->getLastBet();
+
+            return $user->id !== $lot->user_id
+                && $user->hasVerifiedEmail()
+                && (!isset($lastBet) || ($user->id !== $lastBet->user_id));
         });
 
         Password::defaults(function () {
