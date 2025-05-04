@@ -18,6 +18,7 @@ Route::middleware([])->group(function () {
     Route::controller(LotController::class)->group(function () {
         Route::name('lot.')->group(function () {
             Route::get('/lots', 'index')->name('index');
+            Route::get('/lot/{lot}', 'view')->name('view');
         });
     });
 });
@@ -25,7 +26,6 @@ Route::middleware([])->group(function () {
 Route::middleware(['auth:web', 'verified'])->group(function () {
     Route::controller(LotController::class)->group(function () {
         Route::name('lot.')->group(function () {
-            Route::get('/lot/{lot}', 'view')->name('view');
             Route::get('/add-lot', 'create')->name('create');
             Route::post('/add-lot', 'store')->name('store');
         });

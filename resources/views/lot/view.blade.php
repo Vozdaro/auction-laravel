@@ -8,6 +8,7 @@ use App\Models\Lot;
 use App\Enum\FormEnctypeEnum;
 use App\Enum\HttpMethodEnum;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Auth;
 
 @endphp
 @extends('layout.main')
@@ -41,7 +42,7 @@ use Illuminate\Support\MessageBag;
                         </div>
                     </div>
 
-                    @if(!$lot->isOwnerCurrentUser())
+                    @if(Auth::check() && !$lot->isOwnerCurrentUser());
                         <form
                             class="lot-item__form {{ $errors->any() ? ' form--invalid' : '' }}"
                             action="{{ route('bet.store') }}"
