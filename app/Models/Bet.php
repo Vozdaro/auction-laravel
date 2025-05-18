@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int    $amount
  * @property int    $user_id
  * @property int    $lot_id
+ * @property bool   $is_wim
  *
  * @property Lot    $lot
  * @property User   $user
@@ -37,6 +38,7 @@ final class Bet extends Model
         'amount',
         'user_id',
         'lot_id',
+        'is_win',
     ];
 
     /**
