@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('lot_id');
+            $table->boolean('is_win')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('lot_id')->references('id')->on('lots');
