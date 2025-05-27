@@ -42,6 +42,9 @@ final class BetStoreRequest extends FormRequest
 
     }
 
+    /**
+     * @return Lot|null
+     */
     private function getLotById(): ?Lot
     {
         return Lot::find($this->lot_id)->get()[0] ?? null;

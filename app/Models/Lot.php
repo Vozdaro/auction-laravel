@@ -62,6 +62,9 @@ final class Lot extends Model
     /**
      * Get the bets for the lot.
      */
+    /**
+     * @return HasMany
+     */
     public function bets(): HasMany
     {
         return $this->hasMany(Bet::class, 'lot_id', 'id');
@@ -69,6 +72,9 @@ final class Lot extends Model
 
     /**
      * Get the category associated with the lot.
+     */
+    /**
+     * @return HasOne
      */
     public function category(): HasOne
     {
@@ -85,6 +91,9 @@ final class Lot extends Model
 
     /**
      * Get the lot's bet step.
+     */
+    /**
+     * @return Attribute
      */
     protected function betStep(): Attribute
     {

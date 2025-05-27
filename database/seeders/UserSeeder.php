@@ -25,11 +25,17 @@ final class UserSeeder extends Seeder
         ],
     ];
 
+    /**
+     * @param UserServiceInterface $userService
+     */
     public function __construct(
         protected UserServiceInterface $userService,
     ) {
     }
 
+    /**
+     * @return void
+     */
     public function run(): void
     {
         foreach (self::USERS as $user) {

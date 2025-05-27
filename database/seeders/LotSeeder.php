@@ -42,11 +42,17 @@ final class LotSeeder extends Seeder
         ],
     ];
 
+    /**
+     * @param LotServiceInterface $lotService
+     */
     public function __construct(
         protected LotServiceInterface $lotService,
     ) {
     }
 
+    /**
+     * @return void
+     */
     public function run(): void
     {
         if (!$user = User::first()) {

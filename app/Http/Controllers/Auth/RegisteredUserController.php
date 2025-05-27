@@ -14,12 +14,19 @@ use Illuminate\View\View;
 
 final class RegisteredUserController extends AbstractController
 {
+    /**
+     * @param UserServiceInterface $userService
+     * @param CategoryServiceInterface $categoryService
+     */
     public function __construct(
         protected UserServiceInterface $userService,
         protected CategoryServiceInterface $categoryService,
     ) {
     }
 
+    /**
+     * @return View
+     */
     public function create(): View
     {
         return view('auth.signup', [
@@ -28,6 +35,10 @@ final class RegisteredUserController extends AbstractController
         ]);
     }
 
+    /**
+     * @param UserStoreRequest $request
+     * @return RedirectResponse
+     */
     public function store(UserStoreRequest $request): RedirectResponse
     {
         $userStoreDto = UserStoreDto::fromRequest($request);

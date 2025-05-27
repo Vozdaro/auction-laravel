@@ -12,6 +12,10 @@ use Illuminate\View\View;
 
 final class AutenticatedSessionController extends AbstractController
 {
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function create(Request $request): View
     {
         $flashMessage = null;
@@ -26,6 +30,10 @@ final class AutenticatedSessionController extends AbstractController
         ]);
     }
 
+    /**
+     * @param UserLoginRequest $request
+     * @return RedirectResponse
+     */
     public function store(UserLoginRequest $request): RedirectResponse
     {
         $credentials = [
@@ -44,6 +52,10 @@ final class AutenticatedSessionController extends AbstractController
         ])->onlyInput('email');
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::logout();

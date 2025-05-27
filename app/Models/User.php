@@ -59,6 +59,9 @@ final class User extends Authenticatable implements MustVerifyEmail
     /**
      * Interact with the user's password.
      */
+    /**
+     * @return Attribute
+     */
     protected function password(): Attribute
     {
         return Attribute::make(

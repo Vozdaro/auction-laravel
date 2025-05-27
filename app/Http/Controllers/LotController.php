@@ -18,6 +18,10 @@ use Illuminate\View\View;
 
 final class LotController extends AbstractController
 {
+    /**
+     * @param CategoryServiceInterface $categoryService
+     * @param LotServiceInterface $lotService
+     */
     public function __construct(
         protected CategoryServiceInterface $categoryService,
         protected LotServiceInterface      $lotService,

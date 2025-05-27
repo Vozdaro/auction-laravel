@@ -37,6 +37,9 @@ class CategorySeeder extends Seeder
         ],
     ];
 
+    /**
+     * @param CategoryServiceInterface $categoryService
+     */
     public function __construct(
         protected CategoryServiceInterface $categoryService,
     ) {
@@ -44,6 +47,10 @@ class CategorySeeder extends Seeder
 
     /**
      * Run the database seeds.
+     */
+    /**
+     * @return void
+     * @throws \Exception
      */
     public function run(): void
     {

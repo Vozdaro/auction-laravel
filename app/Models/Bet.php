@@ -44,6 +44,9 @@ final class Bet extends Model
     /**
      * Get the lot associated with the bet.
      */
+    /**
+     * @return HasOne
+     */
     public function lot(): HasOne
     {
         return $this->hasOne(Lot::class, 'id', 'lot_id');
@@ -51,6 +54,9 @@ final class Bet extends Model
 
     /**
      * Get the user associated with the bet.
+     */
+    /**
+     * @return HasOne
      */
     public function user(): HasOne
     {

@@ -11,12 +11,19 @@ use Illuminate\View\View;
 
 final class LandingController extends AbstractController
 {
+    /**
+     * @param CategoryServiceInterface $categoryService
+     * @param LotServiceInterface $lotService
+     */
     public function __construct(
         public CategoryServiceInterface $categoryService,
         public LotServiceInterface      $lotService,
     ) {
     }
 
+    /**
+     * @return View
+     */
     public function index(): View
     {
         return view('landing.index', [
@@ -26,6 +33,10 @@ final class LandingController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function search(Request $request): View
     {
         $q = $request->get('text');
