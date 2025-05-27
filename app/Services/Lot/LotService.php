@@ -30,8 +30,7 @@ final class LotService implements LotServiceInterface
     }
 
     /**
-     * @param int $id
-     * @return Collection
+     * @inheritDoc
      */
     public function getByCategoryId(int $id): Collection
     {
@@ -39,8 +38,7 @@ final class LotService implements LotServiceInterface
     }
 
     /**
-     * @param LotStoreDto $lotStoreDto
-     * @return Lot|null
+     * @inheritDoc
      */
     public function store(LotStoreDto $lotStoreDto): ?Lot
     {
@@ -65,8 +63,7 @@ final class LotService implements LotServiceInterface
     }
 
     /**
-     * @param $q
-     * @return Collection
+     * @inheritDoc
      */
     public function getLotBySearchQuery($q): Collection
     {

@@ -14,10 +14,14 @@ use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Mockery\Exception;
 
 final class LotController extends AbstractController
 {
+    private const INVALID_URL_PARAMETER_MESSAGE = 'invalid url parameter';
+
     /**
      * @param CategoryServiceInterface $categoryService
      * @param LotServiceInterface $lotService
@@ -34,7 +38,12 @@ final class LotController extends AbstractController
      */
     public function index(Request $request): View
     {
-        $categoryId = intval($request->get('category'));
+        $categoryId = $request->get('category');
+        if (!is_numeric($categoryId) || strpos(strval($categoryId), '.')) {
+            throw ValidationException::withMessages([self::INVALID_URL_PARAMETER_MESSAGE]);
+        }
+
+        $categoryId = intval($categoryId);
 
         return view('lot.index', [
             'pageTitle' => 'По категории',

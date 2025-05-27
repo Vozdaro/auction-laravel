@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\LandingController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware([])->group(function () {
     Route::controller(LandingController::class)->group(function () {
