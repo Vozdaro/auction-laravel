@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
 //все лоты которые истекли по дедлайну, сегодняшние у которых есть ставки.
+
 namespace App\Console\Commands;
 
 use App\Mail\WinnerNotification;
@@ -52,11 +54,11 @@ final class sendNotificationsCommand extends Command
 
         }
 
-//        dd($data['admin2@gmail.com']);
+        //        dd($data['admin2@gmail.com']);
 
         foreach ($data as $email => $lots) {
             Mail::to($email)->send(new WinnerNotification(new Collection($lots)));
-//            $this->info("Winner notification sent for lot {$lot->id}");
+            //            $this->info("Winner notification sent for lot {$lot->id}");
         }
     }
 }
