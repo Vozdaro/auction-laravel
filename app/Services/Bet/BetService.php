@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class BetService implements BetServiceInterface
 {
+    /**
+     * @param BetStoreDto $betStoreDto
+     * @return Bet
+     */
     public function store(BetStoreDto $betStoreDto): Bet
     {
         return Bet::create([
@@ -20,6 +24,10 @@ final class BetService implements BetServiceInterface
         ]);
     }
 
+    /**
+     * @param $user_id
+     * @return Collection
+     */
     public function getAllByUserId($user_id): Collection
     {
         return Bet::where(['user_id' => $user_id])->get();

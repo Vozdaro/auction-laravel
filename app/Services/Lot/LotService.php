@@ -29,11 +29,19 @@ final class LotService implements LotServiceInterface
         return Lot::all();
     }
 
+    /**
+     * @param int $id
+     * @return Collection
+     */
     public function getByCategoryId(int $id): Collection
     {
         return Lot::where('category_id', '=', $id)->get();
     }
 
+    /**
+     * @param LotStoreDto $lotStoreDto
+     * @return Lot|null
+     */
     public function store(LotStoreDto $lotStoreDto): ?Lot
     {
         $pathPrefix = sprintf(self::LOT_PATH_PREFIX, $lotStoreDto->user->id);
@@ -56,6 +64,10 @@ final class LotService implements LotServiceInterface
         ]);
     }
 
+    /**
+     * @param $q
+     * @return Collection
+     */
     public function getLotBySearchQuery($q): Collection
     {
         return Lot::whereLike('title', "%$q%")->get();

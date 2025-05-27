@@ -11,11 +11,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class CategoryService implements CategoryServiceInterface
 {
+    /**
+     * @return Collection
+     */
     public function getAll(): Collection
     {
         return Category::all();
     }
 
+    /**
+     * @param CategoryStoreDto $categoryStoreDto
+     * @return Category|null
+     */
     public function store(CategoryStoreDto $categoryStoreDto): ?Category
     {
         return Category::create([
