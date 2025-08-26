@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AbstractController;
 use App\Http\Responses\Lot\LotResponse;
-use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
