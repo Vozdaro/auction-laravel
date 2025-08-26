@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\BetController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\LotController;
+use App\Http\Controllers\Web\BetController;
+use App\Http\Controllers\Web\LandingController;
+use App\Http\Controllers\Web\LotController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([])->group(function () {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Auth\AutenticatedSessionController;
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Web\Auth\AutenticatedSessionController;
+use App\Http\Controllers\Web\Auth\EmailVerificationController;
+use App\Http\Controllers\Web\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {

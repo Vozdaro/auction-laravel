@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\DTO\Lot\LotStoreDto;
 use App\Exceptions\Lot\LotImageRequiredException;
+use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Lot\LotStoreRequest;
 use App\Models\Category;
 use App\Models\Lot;
@@ -16,7 +17,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Mockery\Exception;
 
 final class LotController extends AbstractController
 {

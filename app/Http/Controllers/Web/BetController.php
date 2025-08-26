@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\DTO\Bet\BetStoreDto;
+use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Bet\BetStoreRequest;
 use App\Models\Lot;
 use App\Services\Bet\Contracts\BetServiceInterface;

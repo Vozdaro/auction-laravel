@@ -34,4 +34,10 @@ interface LotServiceInterface
      * @return Collection
      */
     public function getLotBySearchQuery($q): Collection;
+
+    /**
+     * @param int $id
+     * @return Lot|null
+     */
+    public function getOne(int $id): ?Lot;
 }

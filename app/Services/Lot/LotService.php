@@ -69,4 +69,13 @@ final class LotService implements LotServiceInterface
     {
         return Lot::whereLike('title', "%$q%")->get();
     }
+
+    /**
+     * @param int $id
+     * @return Lot|null
+     */
+    public function getOne(int $id): ?Lot
+    {
+        return Lot::find($id);
+    }
 }

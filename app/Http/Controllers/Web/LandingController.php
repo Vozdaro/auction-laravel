@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\AbstractController;
 use App\Services\Category\Contracts\CategoryServiceInterface;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Http\Request;
