@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Responses\ModelResponseInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int         $id
@@ -24,9 +26,9 @@ use Illuminate\Support\Facades\Hash;
  *
  * @property UserProfile $profile
  */
-final class User extends Authenticatable implements MustVerifyEmail
+final class User extends Authenticatable implements MustVerifyEmail, ModelResponseInterface
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     /**
      * The table associated with the model.
@@ -67,5 +69,19 @@ final class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(
             set: fn (string $value) => Hash::make($value),
         );
+    }
+
+    public function toResponseArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'email_verified_at' => $this->email_verified_at,
+            'remember_token' => $this->remember_token,
+        ];
     }
 }

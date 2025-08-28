@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Responses\ModelResponseInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static Category|null create(array $data)
  */
-final class Category extends Model
+final class Category extends Model implements ModelResponseInterface
 {
     /**
      * The table associated with the model.
@@ -31,4 +32,10 @@ final class Category extends Model
         'name',
         'inner_code'
     ];
+
+    public function toResponseArray(): array
+    {
+        return [];
+
+    }
 }

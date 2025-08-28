@@ -1,26 +1,30 @@
 <?php
 
-declare(strict_types=1);
+namespace App\Http\Responses\AccessToken;
 
-namespace App\Http\Responses\Lot;
-
+use _PHPStan_ac6dae9b0\Nette\Neon\Exception;
 use App\Http\Responses\AbstractResponse;
-use App\Models\Lot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Symfony\Component\HttpFoundation\Response;
 
-final class LotResponse extends AbstractResponse
+class AccessTokenResponse extends AbstractResponse
 {
+
+    /**
+     * @inheritDoc
+     */
     public static function build(Model|LengthAwarePaginator|array $data, int $status): JsonResponse
     {
-        if ($data instanceof Model) {
-            self::checkModel($data);
+        if (!is_array($data)) {
+            throw new Exception();
         }
 
         return self::wrap(
-            $data->toResponseArray(),
+            $data ? [
+                ...$data,
+                'type' => 'Bearer',
+            ] : [],
             $status
         );
     }

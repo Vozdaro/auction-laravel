@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Responses\ModelResponseInterface;
 use App\Models\Traits\PluralTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Bet[]    $bets
  * @property Category $category
  */
-final class Lot extends Model
+final class Lot extends Model implements ModelResponseInterface
 {
     use PluralTrait;
 
@@ -131,4 +132,20 @@ final class Lot extends Model
         return $this->bets[$this->bets->count() - 1] ?? null;
     }
 
+    public function toResponseArray(): array
+    {
+        return  [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'start_price' => $this->start_price,
+            'bet_step' => $this->bet_step,
+            'deadline' => $this->deadline,
+            'category_id' => $this->category_id,
+            'image_path' => $this->image_path,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'user_id' => $this->user_id,
+        ];
+    }
 }

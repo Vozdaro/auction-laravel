@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Responses\User;
 
+use App\Http\Responses\AbstractResponse;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 
-final class UserResponse
+final class UserResponse extends AbstractResponse
 {
-    public static function build(User $user): JsonResponse
+    public static function build(Model|LengthAwarePaginator|array $data, int $status): JsonResponse
     {
-        return new JsonResponse(
-            [
-                'name'       => $user->name,
-                'email'      => $user->email,
-                'created_at' => $user->created_at,
-            ],
-            Response::HTTP_CREATED
+        if ($data instanceof Model) {
+            self::checkModel($data);
+        }
+
+        return self::wrap(
+            $data->toResponseArray(),
+            $status
         );
     }
 }

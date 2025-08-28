@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Responses\ModelResponseInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property User     $user
  */
-final class UserProfile extends Model
+final class UserProfile extends Model implements ModelResponseInterface
 {
     /**
      * The table associated with the model.
@@ -45,5 +46,10 @@ final class UserProfile extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function toResponseArray(): array
+    {
+        return [];
     }
 }

@@ -11,17 +11,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LotResponse extends AbstractResponse
+final class LotResponsePaginated extends AbstractResponse
 {
     public static function build(Model|LengthAwarePaginator|array $data, int $status): JsonResponse
     {
-        if ($data instanceof Model) {
+        if (!($data instanceof LengthAwarePaginator)) {
             self::checkModel($data);
         }
 
         return self::wrap(
-            $data->toResponseArray(),
-            $status
+            array_map(fn ($lot) => $lot->toResponseArray(), $data->items()),
+            $status,
+            $data
         );
     }
 }

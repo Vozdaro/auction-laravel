@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Responses\ModelResponseInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Lot    $lot
  * @property User   $user
  */
-final class Bet extends Model
+final class Bet extends Model implements ModelResponseInterface
 {
     /**
      * The table associated with the model.
@@ -60,5 +61,10 @@ final class Bet extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function toResponseArray(): array
+    {
+        return [];
     }
 }

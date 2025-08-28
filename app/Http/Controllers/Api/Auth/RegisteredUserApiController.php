@@ -37,6 +37,6 @@ final class RegisteredUserApiController extends AbstractController
         $userStoreDto = UserStoreDto::fromRequest($request);
         $user = $this->userService->store($userStoreDto);
 
-        return UserResponse::build($user);
+        return UserResponse::build($user, Response::HTTP_CREATED);
     }
 }
