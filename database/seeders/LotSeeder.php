@@ -12,7 +12,7 @@ use Illuminate\Http\File;
 
 final class LotSeeder extends Seeder
 {
-    private const LOTS = [
+    public const LOTS = [
         [
             'title'       => 'лот1',
             'description' => 'описание1',

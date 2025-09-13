@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Responses\Lot;
 
 use App\Http\Responses\AbstractResponse;
-use App\Models\Lot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Symfony\Component\HttpFoundation\Response;
 
 final class LotResponse extends AbstractResponse
 {

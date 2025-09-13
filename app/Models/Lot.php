@@ -143,8 +143,8 @@ final class Lot extends Model implements ModelResponseInterface
             'deadline' => $this->deadline,
             'category_id' => $this->category_id,
             'image_path' => $this->image_path,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at->toDayDateTimeString(),
+            'updated_at' => $this->updated_at->toDayDateTimeString(),
             'user_id' => $this->user_id,
         ];
     }
