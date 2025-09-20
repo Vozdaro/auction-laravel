@@ -7,6 +7,7 @@ namespace App\Services\Lot;
 use App\DTO\Lot\LotStoreDto;
 use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
+use App\Storages\Repositories\Lot\Contracts\LotRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Storage;
 
 final class LotService implements LotServiceInterface
 {
+    public function __construct(
+        private LotRepositoryInterface $lotRepository
+    ) {
+    }
+
     private const LOT_PATH_PREFIX = 'public/lots/%s';
 
 
@@ -77,5 +83,13 @@ final class LotService implements LotServiceInterface
     public function getOne(int $id): ?Lot
     {
         return Lot::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteOne(int $lotId): bool
+    {
+        return $this->lotRepository->destroy($lotId);
     }
 }

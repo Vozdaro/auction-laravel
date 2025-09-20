@@ -7,9 +7,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\AbstractController;
 use App\Http\Responses\Lot\LotResponse;
 use App\Http\Responses\Lot\LotResponsePaginated;
+use App\Models\Lot;
 use App\Services\Lot\Contracts\LotServiceInterface;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +21,8 @@ final class LotApiController extends AbstractController
 {
     public function __construct(
         protected LotServiceInterface $lotService,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws Exception
@@ -49,5 +54,28 @@ final class LotApiController extends AbstractController
         $lots = $this->lotService->getAll(true);
 
         return LotResponsePaginated::build($lots, Response::HTTP_OK);
+    }
+
+    /**
+     * @throws AuthenticationException
+     */
+    public function destroy(int $lotId, Request $request): JsonResponse
+    {
+        Gate::authorize('delete-lot', [$this->getUser($request)]);
+
+        if (!Lot::find($lotId)) {
+            return new JsonResponse(
+                ['message' => "Lot with id=$lotId not found"],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $lotDeleted = $this->lotService->deleteOne($lotId);
+        $status = $lotDeleted ? Response::HTTP_NO_CONTENT : Response::HTTP_INTERNAL_SERVER_ERROR;
+
+        return new JsonResponse(
+            ['message' => 'Lot has been deleted'],
+            $status
+        );
     }
 }

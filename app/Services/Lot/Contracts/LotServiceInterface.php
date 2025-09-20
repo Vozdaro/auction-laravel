@@ -40,4 +40,10 @@ interface LotServiceInterface
      * @return Lot|null
      */
     public function getOne(int $id): ?Lot;
+
+    /**
+     * @param int $lotId
+     * @return bool
+     */
+    public function deleteOne(int $lotId): bool;
 }

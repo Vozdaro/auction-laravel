@@ -135,17 +135,17 @@ final class Lot extends Model implements ModelResponseInterface
     public function toResponseArray(): array
     {
         return  [
-            'id' => $this->id,
-            'title' => $this->title,
+            'id'          => $this->id,
+            'title'       => $this->title,
             'description' => $this->description,
             'start_price' => $this->start_price,
-            'bet_step' => $this->bet_step,
-            'deadline' => $this->deadline,
+            'bet_step'    => $this->bet_step,
+            'deadline'    => $this->deadline,
             'category_id' => $this->category_id,
-            'image_path' => $this->image_path,
-            'created_at' => $this->created_at->toDayDateTimeString(),
-            'updated_at' => $this->updated_at->toDayDateTimeString(),
-            'user_id' => $this->user_id,
+            'image_path'  => $this->image_path,
+            'created_at'  => $this->created_at->toDayDateTimeString(),
+            'updated_at'  => $this->updated_at->toDayDateTimeString(),
+            'user_id'     => $this->user_id,
         ];
     }
 }

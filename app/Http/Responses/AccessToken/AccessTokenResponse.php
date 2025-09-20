@@ -10,7 +10,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class AccessTokenResponse extends AbstractResponse
 {
-
     /**
      * @inheritDoc
      */

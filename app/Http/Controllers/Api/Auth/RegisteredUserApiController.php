@@ -13,7 +13,6 @@ use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
-
 final class RegisteredUserApiController extends AbstractController
 {
     public function __construct(

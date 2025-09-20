@@ -13,6 +13,8 @@ use App\Services\Lot\Contracts\LotServiceInterface;
 use App\Services\Lot\LotService;
 use App\Services\User\Contracts\UserServiceInterface;
 use App\Services\User\UserService;
+use App\Storages\Repositories\Lot\Contracts\LotRepositoryInterface;
+use App\Storages\Repositories\Lot\LotRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -27,6 +29,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(BetServiceInterface::class, BetService::class);
         $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
+        $this->app->bind(LotRepositoryInterface::class, LotRepository::class);
         $this->app->bind(LotServiceInterface::class, LotService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
     }
@@ -38,6 +41,12 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->defineGates();
+        $this->setPasswordDefaults();
+    }
+
+    public function defineGates(): void
+    {
         Gate::define('store-bet', function (User $user, Lot $lot) {
             $lastBet = $lot->getLastBet();
 
@@ -46,6 +55,13 @@ final class AppServiceProvider extends ServiceProvider
                 && (!isset($lastBet) || ($user->id !== $lastBet->user_id));
         });
 
+        Gate::define('delete-lot', function (User $user) {
+            return $user->isAdmin();
+        });
+    }
+
+    public function setPasswordDefaults(): void
+    {
         Password::defaults(function () {
             $rule = Password::min(8);
 

@@ -10,10 +10,12 @@ use Illuminate\Database\Seeder;
 
 final class UserSeeder extends Seeder
 {
+    public const ADMIN_EMAIL = 'admin1@gmail.com';
+
     private const USERS = [
         [
             'name'         => 'admin1',
-            'email'        => 'admin1@gmail.com',
+            'email'        => self::ADMIN_EMAIL,
             'password'     => '123',
             'contact_info' => 'contact 1'
         ],
@@ -24,6 +26,7 @@ final class UserSeeder extends Seeder
             'contact_info' => 'contact 2'
         ],
     ];
+
 
     /**
      * @param UserServiceInterface $userService

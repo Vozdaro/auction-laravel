@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class AccessTokenApiController extends AbstractController
 {
     /**
@@ -41,5 +40,3 @@ class AccessTokenApiController extends AbstractController
         );
     }
 }
-
-

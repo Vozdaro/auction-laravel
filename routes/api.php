@@ -22,5 +22,6 @@ Route::controller(LotApiController::class)->group(function () {
     Route::prefix('lots')->group(function () {
         Route::get('/', 'index');
         Route::get('/{lotId}', 'view');
+        Route::delete('/{lotId}', 'destroy')->middleware('auth:sanctum');
     });
 });

@@ -34,24 +34,24 @@ abstract class AbstractResponse
      */
     protected static function wrap(array $data, int $status, ?LengthAwarePaginator $paginator = null): JsonResponse
     {
-//        if (get_called_class() === AccessTokenResponse::class && $status === Response::HTTP_UNAUTHORIZED) {
-//            $resp = ['message' => self::UNAUTHENTICATED_MESSAGE];
-//        } else {
+        //        if (get_called_class() === AccessTokenResponse::class && $status === Response::HTTP_UNAUTHORIZED) {
+        //            $resp = ['message' => self::UNAUTHENTICATED_MESSAGE];
+        //        } else {
 
-            $resp = ['data' => $data];
+        $resp = ['data' => $data];
 
-            if (isset($paginator)) {
-                $resp = [
-                    'current_page'  => $paginator->currentPage(),
-                    'data'          => $data,
-                    'links'         => $paginator->linkCollection(),
-                    'prev_page_url' => $paginator->previousPageUrl(),
-                    'next_page_url' => $paginator->nextPageUrl(),
-                    'total'         => $paginator->total(),
-                    'per_page'      => $paginator->perPage(),
-                ];
-            }
-//        }
+        if (isset($paginator)) {
+            $resp = [
+                'current_page'  => $paginator->currentPage(),
+                'data'          => $data,
+                'links'         => $paginator->linkCollection(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'total'         => $paginator->total(),
+                'per_page'      => $paginator->perPage(),
+            ];
+        }
+        //        }
 
         return new JsonResponse($resp, $status);
     }

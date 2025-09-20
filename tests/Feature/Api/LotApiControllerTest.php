@@ -66,7 +66,7 @@ final class LotApiControllerTest extends TestCase
         $this->assertDatabaseCount('lots', count(LotSeeder::LOTS));
 
         $method = 'assertDatabase';
-        $method .=  $expectedStatus === Response::HTTP_OK ? 'Has' : 'Missing';
+        $method .= $expectedStatus === Response::HTTP_OK ? 'Has' : 'Missing';
         $this->{$method}('lots', [
             'id' => $lotId,
         ]);
