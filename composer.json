@@ -71,6 +71,13 @@
             "php artisan storage:link",
             "@build",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "migrate-fresh-all": [
+            "php artisan db:wipe --database=mysql_master",
+            "php artisan db:wipe --database=mysql_slave",
+            "php artisan migrate:install --database=mysql_master",
+            "php artisan migrate:install --database=mysql_slave",
+            "php artisan migrate --seed"
         ]
     },
     "extra": {

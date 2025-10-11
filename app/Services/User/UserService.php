@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User;
 
 use App\DTO\User\UserStoreDto;
+use App\Enum\ReplicationPostfixEnum;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Services\User\Contracts\UserServiceInterface;
@@ -18,20 +19,28 @@ final class UserService implements UserServiceInterface
      */
     public function store(UserStoreDto $userStoreDto): User
     {
-        DB::beginTransaction();
-        $user = User::create([
-            'name'     => $userStoreDto->name,
-            'email'    => $userStoreDto->email,
-            'password' => $userStoreDto->password
-        ]);
+        $masterUser = null;
 
-        $userProfile = UserProfile::create([
-            'user_id'      => $user->id,
-            'contact_info' => $userStoreDto->contact_info
-        ]);
-        DB::commit();
-        event(new Registered($user));
+        foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
+            DB::connection("mysql_$connectionPostfix")->beginTransaction();
+            $user = User::on("mysql_$connectionPostfix")->create([
+                'name'     => $userStoreDto->name,
+                'email'    => $userStoreDto->email,
+                'password' => $userStoreDto->password
+            ]);
 
-        return $user;
+            $userProfile = UserProfile::on("mysql_$connectionPostfix")->create([
+                'user_id'      => $user->id,
+                'contact_info' => $userStoreDto->contact_info
+            ]);
+            DB::connection("mysql_$connectionPostfix")->commit();
+
+            if ($connectionPostfix === 'master') {
+                event(new Registered($user));
+                $masterUser = $user;
+            }
+        }
+
+        return $masterUser;
     }
 }

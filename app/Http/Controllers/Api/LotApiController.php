@@ -59,6 +59,11 @@ final class LotApiController extends AbstractController
     /**
      * @throws AuthenticationException
      */
+    #[OA\Delete(path: '/api/v1/lots/{lotId}', summary: 'Delete one lot.', security: [['bearerAuth' => []]], tags: ['Lot'])]
+    #[OA\Parameter(name: 'lotId', description: 'write id of lot that you want delete', in: 'path', required: true)]
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'OK')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthenticated')]
     public function destroy(int $lotId, Request $request): JsonResponse
     {
         Gate::authorize('delete-lot', [$this->getUser($request)]);
