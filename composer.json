@@ -77,7 +77,7 @@
             "php artisan db:wipe --database=mysql_slave",
             "php artisan migrate:install --database=mysql_master",
             "php artisan migrate:install --database=mysql_slave",
-            "php artisan migrate --seed"
+            "php artisan migrate:fresh --seed"
         ]
     },
     "extra": {

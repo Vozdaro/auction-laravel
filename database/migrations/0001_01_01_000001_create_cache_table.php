@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\ReplicationPostfixEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,17 +12,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cache', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->mediumText('value');
-            $table->integer('expiration');
-        });
+        foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
+            Schema::connection("mysql_$connectionPostfix")->create('cache', function (Blueprint $table) {
+                $table->string('key')->primary();
+                $table->mediumText('value');
+                $table->integer('expiration');
+            });
 
-        Schema::create('cache_locks', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->string('owner');
-            $table->integer('expiration');
-        });
+            Schema::connection("mysql_$connectionPostfix")->create('cache_locks', function (Blueprint $table) {
+                $table->string('key')->primary();
+                $table->string('owner');
+                $table->integer('expiration');
+            });
+        }
     }
 
     /**
@@ -29,7 +32,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
+            Schema::connection("mysql_$connectionPostfix")->dropIfExists('cache');
+            Schema::connection("mysql_$connectionPostfix")->dropIfExists('cache_locks');
+        }
     }
 };

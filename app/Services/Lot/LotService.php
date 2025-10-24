@@ -82,7 +82,7 @@ final class LotService implements LotServiceInterface
      */
     public function getOne(int $id): ?Lot
     {
-        return Lot::find($id);
+        return $this->lotRepository->get($id);
     }
 
     /**
