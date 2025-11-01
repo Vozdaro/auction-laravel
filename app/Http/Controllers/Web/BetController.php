@@ -9,6 +9,8 @@ use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Bet\BetStoreRequest;
 use App\Models\Lot;
 use App\Services\Bet\Contracts\BetServiceInterface;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -27,7 +29,7 @@ final class BetController extends AbstractController
     /**
      * @param Request $request
      * @return View
-     * @throws \Illuminate\Auth\AuthenticationException
+     * @throws AuthenticationException
      */
     public function index(Request $request): View
     {
@@ -40,7 +42,8 @@ final class BetController extends AbstractController
     /**
      * @param BetStoreRequest $request
      * @return RedirectResponse
-     * @throws \Illuminate\Auth\AuthenticationException
+     * @throws AuthenticationException
+     * @throws AuthorizationException
      */
     public function store(BetStoreRequest $request): RedirectResponse
     {
@@ -50,5 +53,4 @@ final class BetController extends AbstractController
 
         return to_route('lot.view', $bet->lot->id);
     }
-
 }

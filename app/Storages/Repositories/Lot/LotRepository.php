@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Storages\Repositories\Lot;
@@ -17,6 +18,9 @@ class LotRepository extends AbstractRepository implements LotRepositoryInterface
         return boolval(Lot::destroy($ids));
     }
 
+    /**
+     * @inheritdoc
+     */
     public function get($id): Lot
     {
         return Lot::on($this->readConnection)->find($id);

@@ -10,6 +10,15 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface BetServiceInterface
 {
+    /**
+     * @param BetStoreDto $betStoreDto
+     * @return Bet
+     */
     public function store(BetStoreDto $betStoreDto): Bet;
+
+    /**
+     * @param $user_id
+     * @return Collection
+     */
     public function getAllByUserId($user_id): Collection;
 }

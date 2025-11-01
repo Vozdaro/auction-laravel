@@ -7,29 +7,28 @@ namespace App\Services\Bet;
 use App\DTO\Bet\BetStoreDto;
 use App\Models\Bet;
 use App\Services\Bet\Contracts\BetServiceInterface;
+use App\Storages\Repositories\Bet\Contracts\BetRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 final class BetService implements BetServiceInterface
 {
-    /**
-     * @param BetStoreDto $betStoreDto
-     * @return Bet
-     */
-    public function store(BetStoreDto $betStoreDto): Bet
-    {
-        return Bet::create([
-            'amount'  => $betStoreDto->amount,
-            'lot_id'  => $betStoreDto->lot_id,
-            'user_id' => $betStoreDto->user_id,
-        ]);
-    }
+    public function __construct(
+        private readonly BetRepositoryInterface $betRepository,
+    ) {}
 
     /**
-     * @param $user_id
-     * @return Collection
+     * @inheritdoc
      */
     public function getAllByUserId($user_id): Collection
     {
-        return Bet::where(['user_id' => $user_id])->get();
+        return $this->betRepository->getAll($user_id);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function store(BetStoreDto $betStoreDto): Bet
+    {
+        return $this->betRepository->createForConnection($betStoreDto);
     }
 }
