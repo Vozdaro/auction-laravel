@@ -8,14 +8,14 @@ use App\Models\Lot;
 use App\Storages\Repositories\AbstractRepository;
 use App\Storages\Repositories\Lot\Contracts\LotRepositoryInterface;
 
-class LotRepository extends AbstractRepository implements LotRepositoryInterface
+final class LotRepository extends AbstractRepository implements LotRepositoryInterface
 {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    public function destroy(int|array $ids): bool
+    protected static function modelName(): string
     {
-        return boolval(Lot::destroy($ids));
+        return Lot::class;
     }
 
     /**

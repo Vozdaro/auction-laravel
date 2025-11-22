@@ -10,22 +10,22 @@ use App\Storages\Repositories\AbstractRepository;
 use App\Storages\Repositories\Bet\Contracts\BetRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class BetRepository extends AbstractRepository implements BetRepositoryInterface
+final class BetRepository extends AbstractRepository implements BetRepositoryInterface
 {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    public function destroy(int|array $ids): bool
+    protected static function modelName(): string
     {
-        return boolval(Bet::destroy($ids));
+        return Bet::class;
     }
 
     /**
      * @inheritdoc
      */
-    public function getAll($id): Collection
+    public function getAll(array $params = []): Collection
     {
-        return Bet::where(['user_id' => $id])->get();
+        return Bet::where($params['user_id'])->get();
     }
 
     /**

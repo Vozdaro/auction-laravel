@@ -123,7 +123,7 @@ final class Lot extends Model implements ModelResponseInterface
         if ($this->bets->count()) {
             return $this->bets->max('amount');
         } else {
-            return $this->start_price;
+            return $this->getRawOriginal('start_price');
         }
     }
 

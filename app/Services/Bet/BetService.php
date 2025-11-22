@@ -21,7 +21,7 @@ final class BetService implements BetServiceInterface
      */
     public function getAllByUserId($user_id): Collection
     {
-        return $this->betRepository->getAll($user_id);
+        return $this->betRepository->getAll(compact('user_id'));
     }
 
     /**

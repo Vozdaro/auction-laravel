@@ -18,6 +18,7 @@ final class UserService implements UserServiceInterface
      * @inheritdoc
      */
     public function store(UserStoreDto $userStoreDto): User
+    // todo: подумать над тем чтобы сделать метод store из всех репозиториев в абстрактный
     {
         $masterUser = null;
 

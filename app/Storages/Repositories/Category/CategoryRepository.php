@@ -11,22 +11,14 @@ use App\Storages\Repositories\AbstractRepository;
 use App\Storages\Repositories\Category\Contracts\CategoryRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
+final class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
 {
     /**
      * @inheritdoc
      */
-    public function destroy(int|array $ids): bool
+    protected static function modelName(): string
     {
-        return boolval(Category::destroy($ids));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAll(): Collection
-    {
-        return Category::all();
+        return Category::class;
     }
 
     /**
