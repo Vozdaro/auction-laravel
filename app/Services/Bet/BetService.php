@@ -14,10 +14,11 @@ final class BetService implements BetServiceInterface
 {
     public function __construct(
         private readonly BetRepositoryInterface $betRepository,
-    ) {}
+    ) {
+    }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getAllByUserId($user_id): Collection
     {
@@ -25,7 +26,7 @@ final class BetService implements BetServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function store(BetStoreDto $betStoreDto): Bet
     {

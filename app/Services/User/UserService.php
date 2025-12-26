@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 final class UserService implements UserServiceInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function store(UserStoreDto $userStoreDto): User
     // todo: подумать над тем чтобы сделать метод store из всех репозиториев в абстрактный
@@ -27,7 +27,8 @@ final class UserService implements UserServiceInterface
             $user = User::on("mysql_$connectionPostfix")->create([
                 'name'     => $userStoreDto->name,
                 'email'    => $userStoreDto->email,
-                'password' => $userStoreDto->password
+                'password' => $userStoreDto->password,
+                'is_admin' => $userStoreDto->is_admin,
             ]);
 
             $userProfile = UserProfile::on("mysql_$connectionPostfix")->create([

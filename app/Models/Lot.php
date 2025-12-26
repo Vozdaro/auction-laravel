@@ -56,6 +56,7 @@ final class Lot extends Model implements ModelResponseInterface
         'bet_step',
         'deadline',
         'category_id',
+        'is_moderated',
         'user_id',
         'image_path',
     ];

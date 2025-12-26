@@ -8,6 +8,5 @@ use App\Storages\Contracts\ModelStorageInterface;
 
 interface UserRepositoryInterface extends ModelStorageInterface
 {
-
     // todo: доделать репозиторий для юзера
 }

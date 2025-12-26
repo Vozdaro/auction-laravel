@@ -22,6 +22,7 @@ final readonly class LotStoreDto
      * @param int $categoryId
      * @param UploadedFile $image
      * @param User $user
+     * @param bool $isModerated
      */
     public function __construct(
         public string       $title,
@@ -32,6 +33,7 @@ final readonly class LotStoreDto
         public int          $categoryId,
         public File|UploadedFile $image,
         public User         $user,
+        public bool        $isModerated = false,
     ) {
     }
 
@@ -70,6 +72,7 @@ final readonly class LotStoreDto
             $data['category_id'],
             $image,
             $user,
+            $data['is_moderated'],
         );
     }
 }

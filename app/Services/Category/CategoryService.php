@@ -13,9 +13,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class CategoryService implements CategoryServiceInterface
 {
-    public function __construct (
+    public function __construct(
         private CategoryRepositoryInterface $categoryRepository
-    ) {}
+    ) {
+    }
 
     /**
      * @return Collection

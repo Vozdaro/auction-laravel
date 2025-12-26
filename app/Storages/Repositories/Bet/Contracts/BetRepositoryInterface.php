@@ -10,7 +10,6 @@ use App\Storages\Contracts\ModelStorageInterface;
 
 interface BetRepositoryInterface extends ModelStorageInterface
 {
-
     /**
      * @param BetStoreDto $betStoreDto
      * @return Bet

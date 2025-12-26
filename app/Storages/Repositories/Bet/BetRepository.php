@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 final class BetRepository extends AbstractRepository implements BetRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected static function modelName(): string
     {
@@ -21,7 +21,7 @@ final class BetRepository extends AbstractRepository implements BetRepositoryInt
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getAll(array $params = []): Collection
     {
@@ -29,7 +29,7 @@ final class BetRepository extends AbstractRepository implements BetRepositoryInt
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function createForConnection(BetStoreDto $betStoreDto): Bet
     {

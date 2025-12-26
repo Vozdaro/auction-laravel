@@ -57,14 +57,15 @@ final class LotService implements LotServiceInterface
         }
 
         return Lot::create([
-            'title'       => $lotStoreDto->title,
-            'description' => $lotStoreDto->description,
-            'start_price' => $lotStoreDto->startPrice,
-            'bet_step'    => $lotStoreDto->betStep,
-            'deadline'    => $lotStoreDto->deadline,
-            'category_id' => $lotStoreDto->categoryId,
-            'user_id'     => $lotStoreDto->user->id,
-            'image_path'  => $imagePath,
+            'title'        => $lotStoreDto->title,
+            'description'  => $lotStoreDto->description,
+            'start_price'  => $lotStoreDto->startPrice,
+            'bet_step'     => $lotStoreDto->betStep,
+            'deadline'     => $lotStoreDto->deadline,
+            'is_moderated' => $lotStoreDto->isModerated,
+            'category_id'  => $lotStoreDto->categoryId,
+            'user_id'      => $lotStoreDto->user->id,
+            'image_path'   => $imagePath,
         ]);
     }
 

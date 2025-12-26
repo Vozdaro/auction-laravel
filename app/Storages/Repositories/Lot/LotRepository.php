@@ -11,7 +11,7 @@ use App\Storages\Repositories\Lot\Contracts\LotRepositoryInterface;
 final class LotRepository extends AbstractRepository implements LotRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected static function modelName(): string
     {
@@ -19,7 +19,7 @@ final class LotRepository extends AbstractRepository implements LotRepositoryInt
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function get($id): Lot
     {

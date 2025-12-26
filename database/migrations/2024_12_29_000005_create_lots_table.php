@@ -24,6 +24,7 @@ return new class extends Migration
                 $table->integer('start_price');
                 $table->integer('bet_step');
                 $table->date('deadline');
+                $table->boolean('is_moderated');
 
                 $table->unsignedBigInteger('category_id');
                 $table->unsignedBigInteger('user_id');

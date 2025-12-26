@@ -13,12 +13,14 @@ final readonly class UserStoreDto
      * @param string $email
      * @param string $password
      * @param string $contact_info
+     * @param bool $is_admin
      */
     public function __construct(
         public string $name,
         public string $email,
         public string $password,
         public string $contact_info,
+        public bool $is_admin = false,
     ) {
     }
 
@@ -42,7 +44,8 @@ final readonly class UserStoreDto
             $data['name'],
             $data['email'],
             $data['password'],
-            $data['contact_info']
+            $data['contact_info'],
+            $data['is_admin']
         );
     }
 }

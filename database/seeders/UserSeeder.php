@@ -17,13 +17,15 @@ final class UserSeeder extends Seeder
             'name'         => 'admin1',
             'email'        => self::ADMIN_EMAIL,
             'password'     => '123',
-            'contact_info' => 'contact 1'
+            'contact_info' => 'contact 1',
+            'is_admin'     => true
         ],
         [
             'name'         => 'admin2',
             'email'        => 'admin2@gmail.com',
             'password'     => '123',
-            'contact_info' => 'contact 2'
+            'contact_info' => 'contact 2',
+            'is_admin'     => true
         ],
     ];
 
