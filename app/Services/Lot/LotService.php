@@ -11,6 +11,7 @@ use App\Storages\Repositories\Lot\Contracts\LotRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 final class LotService implements LotServiceInterface
@@ -28,11 +29,18 @@ final class LotService implements LotServiceInterface
      */
     public function getAll(bool $paginate = false): Collection|LengthAwarePaginator
     {
-        if ($paginate) {
-            return Lot::paginate(config('app.pagination.per_page'));
+        if (!Auth::check() || Auth::user()->is_admin == 0) {
+            $query = Lot::where('is_moderated', 1);
+            return $paginate
+                ? $query->paginate(config('app.pagination.per_page'))
+                : $query->get();
+        } else {
+            return $paginate
+                ? Lot::paginate(config('app.pagination.per_page'))
+                : Lot::all();
         }
 
-        return Lot::all();
+
     }
 
     /**
