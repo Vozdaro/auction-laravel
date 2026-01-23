@@ -29,18 +29,30 @@ final class LotService implements LotServiceInterface
      */
     public function getAll(bool $paginate = false): Collection|LengthAwarePaginator
     {
+        $unmoderatedLotId = intval(Lot::query()
+            ->where('user_id', Auth::id())
+            ->where('is_moderated', '0')
+            ->first()
+            ?->user_id);
+
+        if (Auth::id() === $unmoderatedLotId && Auth::user()->is_admin == 0) {
+            $query = Lot::where('is_moderated', 1);
+            $query->orWhere('user_id', Auth::id());
+            return $paginate
+                ? $query->paginate(config('app.pagination.per_page'))
+                : $query->get();
+        }
+
         if (!Auth::check() || Auth::user()->is_admin == 0) {
             $query = Lot::where('is_moderated', 1);
             return $paginate
                 ? $query->paginate(config('app.pagination.per_page'))
                 : $query->get();
-        } else {
-            return $paginate
-                ? Lot::paginate(config('app.pagination.per_page'))
-                : Lot::all();
         }
 
-
+        return $paginate
+            ? Lot::paginate(config('app.pagination.per_page'))
+            : Lot::all();
     }
 
     /**
