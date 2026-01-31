@@ -29,30 +29,25 @@ final class LotService implements LotServiceInterface
      */
     public function getAll(bool $paginate = false): Collection|LengthAwarePaginator
     {
-        $unmoderatedLotId = intval(Lot::query()
-            ->where('user_id', Auth::id())
-            ->where('is_moderated', '0')
+        $userId = intval(Lot::query()
+            ->where(['user_id' => Auth::id(), 'is_moderated' => false])
             ->first()
             ?->user_id);
 
-        if (Auth::id() === $unmoderatedLotId && Auth::user()->is_admin == 0) {
-            $query = Lot::where('is_moderated', 1);
-            $query->orWhere('user_id', Auth::id());
-            return $paginate
-                ? $query->paginate(config('app.pagination.per_page'))
-                : $query->get();
-        }
+        $user = Auth::user();
+        $query = Lot::query();
 
-        if (!Auth::check() || Auth::user()->is_admin == 0) {
-            $query = Lot::where('is_moderated', 1);
-            return $paginate
-                ? $query->paginate(config('app.pagination.per_page'))
-                : $query->get();
+        if ($user && $user->id === $userId && !$user->is_admin) {
+            $query
+                ->where('is_moderated', true)
+                ->orWhere('user_id', Auth::id());
+        } elseif (!$user || !$user?->is_admin) {
+            $query->where('is_moderated', true);
         }
 
         return $paginate
-            ? Lot::paginate(config('app.pagination.per_page'))
-            : Lot::all();
+            ? $query->paginate(config('app.pagination.per_page'))
+            : $query->get();
     }
 
     /**

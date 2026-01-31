@@ -24,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string      $email_verified_at
  * @property string      $password
  * @property string      $remember_token
+ * @property boolean     $is_admin
  *
  * @property UserProfile $profile
  */
@@ -75,7 +76,7 @@ final class User extends Authenticatable implements MustVerifyEmail, ModelRespon
 
     public function isAdmin(): bool
     {
-        return UserSeeder::ADMIN_EMAIL === $this->email;
+        return $this->is_admin;
     }
 
     /**
