@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int      $category_id
  * @property int      $user_id
  * @property string   $image_path
+ * @property boolean  $is_moderated
  *
  * @property Bet[]    $bets
  * @property Category $category

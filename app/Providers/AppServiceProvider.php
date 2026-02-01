@@ -61,7 +61,7 @@ final class AppServiceProvider extends ServiceProvider
                 && (!isset($lastBet) || ($user->id !== $lastBet->user_id));
         });
 
-        Gate::define('delete-lot', function (User $user) {
+        Gate::define('sudo', function (User $user) {
             return $user->isAdmin();
         });
     }

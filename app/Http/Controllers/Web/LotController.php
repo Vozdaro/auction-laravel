@@ -15,6 +15,7 @@ use App\Services\Lot\Contracts\LotServiceInterface;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -87,5 +88,13 @@ final class LotController extends AbstractController
         $this->lotService->store($lotStoreDto);
 
         return to_route('base.landing');
+    }
+
+    public function update(Lot $lot): RedirectResponse
+    {
+        Gate::authorize('sudo');
+        $this->lotService->editModStatus($lot->id);
+
+        return back();
     }
 }

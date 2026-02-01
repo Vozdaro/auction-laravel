@@ -93,8 +93,7 @@ final class LotService implements LotServiceInterface
     }
 
     /**
-     * @param int $id
-     * @return Lot|null
+     * @inheritDoc
      */
     public function getOne(int $id): ?Lot
     {
@@ -107,5 +106,13 @@ final class LotService implements LotServiceInterface
     public function deleteOne(int $lotId): bool
     {
         return $this->lotRepository->destroy($lotId);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function editModStatus(int $lotId): bool
+    {
+        return $this->lotRepository->update($lotId);
     }
 }

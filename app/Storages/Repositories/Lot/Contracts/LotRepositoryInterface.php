@@ -14,4 +14,10 @@ interface LotRepositoryInterface extends ModelStorageInterface
      * @return Lot
      */
     public function get($id): Lot;
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function update($id): bool;
 }

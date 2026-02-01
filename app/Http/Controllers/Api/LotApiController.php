@@ -66,7 +66,7 @@ final class LotApiController extends AbstractController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthenticated')]
     public function destroy(int $lotId, Request $request): JsonResponse
     {
-        Gate::authorize('delete-lot', [$this->getUser($request)]);
+        Gate::authorize('sudo', [$this->getUser($request)]);
 
         if (!Lot::find($lotId)) {
             return new JsonResponse(

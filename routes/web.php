@@ -29,6 +29,7 @@ Route::middleware(['auth:web'])->group(function () {
             Route::name('lot.')->group(function () {
                 Route::get('/add-lot', 'create')->name('create');
                 Route::post('/add-lot', 'store')->name('store');
+                Route::get('/lot/{lot}/update', 'update')->name('update');
             });
         });
 

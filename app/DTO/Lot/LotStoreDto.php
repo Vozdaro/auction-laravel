@@ -25,7 +25,7 @@ final readonly class LotStoreDto
      * @param bool $isModerated
      */
     public function __construct(
-        public string       $title,
+        public string          $title,
         public string       $description,
         public int          $startPrice,
         public int          $betStep,

@@ -46,4 +46,10 @@ interface LotServiceInterface
      * @return bool
      */
     public function deleteOne(int $lotId): bool;
+
+    /**
+     * @param int $lotId
+     * @return bool
+     */
+    public function editModStatus(int $lotId): bool;
 }

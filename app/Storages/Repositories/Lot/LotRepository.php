@@ -25,4 +25,13 @@ final class LotRepository extends AbstractRepository implements LotRepositoryInt
     {
         return Lot::on($this->readConnection)->find($id);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function update($id): bool
+    {
+        $lot = Lot::find($id);
+        return $lot->update(['is_moderated' => !$lot->is_moderated]);
+    }
 }

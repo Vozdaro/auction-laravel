@@ -7,6 +7,7 @@
 use App\Models\Lot;
 use App\Enum\FormEnctypeEnum;
 use App\Enum\HttpMethodEnum;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
 
 
@@ -32,7 +33,25 @@ use Illuminate\Support\MessageBag;
             </div>
             <div class="lot-item__right">
                 <div class="lot-item__state">
-                    <div class="lot-item__timer timer" style="width: fit-content;">{{ $lot->deadline }}</div>
+                    <div class="lot-item-cont" style="display: flex; justify-content: space-between">
+                        <div class="lot-item__timer timer" style="width: fit-content;">{{ $lot->deadline }}</div>
+
+                        @if (!$lot->is_moderated)
+                            @if(Auth::user()?->isAdmin())
+                                <a
+                                    class="lot-item__timer timer"
+                                    style="width: fit-content; background-color: darkred;"
+                                    href="{{ route('lot.update', $lot)  }}"
+                                >На модерации</a>
+                            @else
+                                <div
+                                    class="lot-item__timer timer"
+                                    style="width: fit-content; background-color: darkred;"
+                                >На модерации</div>
+                            @endif
+                        @endif
+
+                    </div>
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Текущая цена</span>

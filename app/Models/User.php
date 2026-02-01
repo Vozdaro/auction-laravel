@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property int         $id
- * @property Carbon      $created_at
- * @property Carbon      $updated_at
- * @property string      $name
- * @property string      $email
- * @property string      $email_verified_at
- * @property string      $password
- * @property string      $remember_token
- * @property boolean     $is_admin
+ * @property int    $id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $name
+ * @property string $email
+ * @property string $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property int    $is_admin
  *
  * @property UserProfile $profile
  */
@@ -76,7 +76,7 @@ final class User extends Authenticatable implements MustVerifyEmail, ModelRespon
 
     public function isAdmin(): bool
     {
-        return $this->is_admin;
+        return boolval($this->is_admin);
     }
 
     /**

@@ -59,7 +59,19 @@ use Illuminate\Pagination\LengthAwarePaginator;
                                 </span>
                                 <span class="lot__cost">{{ number_format($lot->calcStartPrice(), 0, '.', ' ') }}<b class="rub">р</b></span>
                             </div>
-                            <div class="lot__timer timer">{{ $lot->deadline }}</div>
+
+                            @if (!$lot->is_moderated)
+                                <div class="lot-cont">
+                                    <div
+                                        class="lot-item__timer timer"
+                                        style="width: fit-content; background-color: darkred;"
+                                    >На модерации</div>
+                                    <div class="lot__timer timer">{{ $lot->deadline }}</div>
+                                </div>
+                            @else
+                                <div class="lot__timer timer">{{ $lot->deadline }}</div>
+                            @endif
+
                         </div>
                     </div>
                 </li>
