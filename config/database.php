@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'default'         => env('DB_CONNECTION', 'mysql_master'),
-    'read_connection' => env('DB_READ_CONNECTION', 'mysql_slave'),
+    'default'         => env('DB_CONNECTION', 'pgsql_master'),
+    'read_connection' => env('DB_READ_CONNECTION', 'pgsql_slave'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,6 +70,36 @@ return [
             'options'        => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'pgsql_master' => [
+            'driver'         => 'pgsql',
+            'url'            => env('DB_MASTER_URL'),
+            'host'           => env('DB_MASTER_HOST', 'postgres'),
+            'port'           => env('DB_MASTER_PORT', '5432'),
+            'database'       => env('DB_MASTER_DATABASE', 'laravel'),
+            'username'       => env('DB_MASTER_USERNAME', 'root'),
+            'password'       => env('DB_MASTER_PASSWORD', ''),
+            'charset'        => env('DB_MASTER_CHARSET', 'utf8'),
+            'prefix'         => '',
+            'prefix_indexes' => true,
+            'search_path'    => 'public',
+            'sslmode'        => 'prefer',
+        ],
+
+        'pgsql_slave' => [
+            'driver'         => 'pgsql',
+            'url'            => env('DB_SLAVE_URL'),
+            'host'           => env('DB_SLAVE_HOST', '127.0.0.1'),
+            'port'           => env('DB_SLAVE_PORT', '5432'),
+            'database'       => env('DB_SLAVE_DATABASE', 'laravel'),
+            'username'       => env('DB_SLAVE_USERNAME', 'root'),
+            'password'       => env('DB_SLAVE_PASSWORD', ''),
+            'charset'        => env('DB_SLAVE_CHARSET', 'utf8'),
+            'prefix'         => '',
+            'prefix_indexes' => true,
+            'search_path'    => 'public',
+            'sslmode'        => 'prefer',
         ]
 
     ],

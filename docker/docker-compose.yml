@@ -1,0 +1,75 @@
+name: yeticave
+
+services:
+    php:
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+            args:
+                PHP_VERSION: '8.5'
+                FPM_PORT: 9000
+                DIR: /app
+        container_name: yeticave-php
+        hostname: localhost
+        restart: unless-stopped
+        volumes:
+            - ../:/app
+            - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+        working_dir: /app
+
+    nginx:
+        image: nginx:1.21
+        container_name: yeticave-nginx
+        environment:
+            LISTEN_HTTP: 80
+            PHP_FPM_HOST: php
+            PHP_FPM_PORT: 9000
+        ports:
+            - '8280:80'
+        restart: unless-stopped
+        volumes:
+            - ../:/app
+            - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+        working_dir: /app
+
+    postgres:
+        image: postgres:latest
+        container_name: yeticave-postgres
+        command: >
+            postgres
+                -c max_connections=1000
+                -c shared_buffers=256MB
+                -c effective_cache_size=768MB
+                -c maintenance_work_mem=64MB
+                -c checkpoint_completion_target=0.7
+                -c wal_buffers=16MB
+                -c default_statistics_target=100
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 256M
+        environment:
+            POSTGRES_DB:       auction_master
+            POSTGRES_USER:     root
+            POSTGRES_PASSWORD: 1
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres_user -d auction_master" ]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        ports:
+            - '8232:5432'
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./data/pgdata:/var/lib/postgresql/data/pgdata
+            - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
+volumes:
+    postgres_data:
+      driver: local
