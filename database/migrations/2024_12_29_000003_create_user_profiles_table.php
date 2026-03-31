@@ -15,7 +15,7 @@ return new class extends Migration
     public function up(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->create('user_profiles', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('user_profiles', function (Blueprint $table) {
                 $table->id();
                 $table->timestamps();
                 $table->string('contact_info');
@@ -33,7 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('user_profiles');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('user_profiles');
         }
     }
 };

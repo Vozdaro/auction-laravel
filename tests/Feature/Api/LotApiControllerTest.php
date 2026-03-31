@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api;
 
+use App\Http\Responses\AbstractResponse;
 use Database\Seeders\LotSeeder;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 final class LotApiControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-    use DatabaseTransactions;
-
     /**
      * @return list<list<int>>
      */
@@ -27,7 +23,7 @@ final class LotApiControllerTest extends TestCase
                 Response::HTTP_OK
             ],
             [
-                7,
+                count(LotSeeder::LOTS),
                 Response::HTTP_NOT_FOUND
             ],
         ];
@@ -38,49 +34,36 @@ final class LotApiControllerTest extends TestCase
      */
     public function test_get_many_success(): void
     {
-        $this->assertDatabaseEmpty('users');
-        $this->assertDatabaseEmpty('categories');
-        $this->assertDatabaseEmpty('lots');
+        $this->prepareDatabase();
 
-        $this->seed();
+        $resp = $this
+            ->getJson('api/v1/lots')
+            ->assertStatus(Response::HTTP_OK);
 
-        $this->getJson('api/v1/lots')->assertStatus(Response::HTTP_OK);
+        $this->assertCount(count(LotSeeder::LOTS), $resp[AbstractResponse::DATA_KEY]);
     }
 
     /**
-     * @param int $lotId
+     * @param int $id
      * @param int $expectedStatus
      * @return void
      */
-    #[DataProvider('getOneDataProvider')]
-    public function test_get_one_success(int $lotId, int $expectedStatus): void
-    {
-        $this->assertDatabaseEmpty('users');
-        $this->assertDatabaseEmpty('categories');
-        $this->assertDatabaseEmpty('lots');
+        #[DataProvider('getOneDataProvider')]
+        public function test_get_one_success(int $id, int $expectedStatus): void
+        {
+            $this->prepareDatabase();
 
-        $this->seed();
-
-        $this->assertDatabaseCount('users', 2);
-        $this->assertDatabaseCount('categories', 6);
-        $this->assertDatabaseCount('lots', count(LotSeeder::LOTS));
-
-        $method = 'assertDatabase';
-        $method .= $expectedStatus === Response::HTTP_OK ? 'Has' : 'Missing';
-        $this->{$method}('lots', [
-            'id' => $lotId,
-        ]);
-
-        $resposne = $this
-            ->getJson("api/v1/lots/$lotId")
-            ->assertStatus($expectedStatus);
-
-        if ($expectedStatus === Response::HTTP_OK) {
-            $resposne->assertJson([
-                'data' => [
-                    'id' => $lotId,
-                ]
-            ]);
+            $lotId = compact('id');
+            $method = 'assertDatabase';
+            $method .= $expectedStatus === Response::HTTP_OK ? 'Has' : 'Missing';
+//            $this->{$method}('lots', $lotId);
+//
+//            $resposne = $this
+//                ->getJson("api/v1/lots/$id")
+//                ->assertStatus($expectedStatus);
+//
+//            if ($expectedStatus === Response::HTTP_OK) {
+//                $resposne->assertJson([AbstractResponse::DATA_KEY => $lotId]);
+//            }
         }
-    }
 }

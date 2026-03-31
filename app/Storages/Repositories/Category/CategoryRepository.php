@@ -24,7 +24,7 @@ final class CategoryRepository extends AbstractRepository implements CategoryRep
      */
     public function store(CategoryStoreDto $categoryStoreDto, $connectionPostfix): Category
     {
-        return Category::on("mysql_$connectionPostfix")->create([
+        return Category::on("pgsql_$connectionPostfix")->create([
             'name'       => $categoryStoreDto->name,
             'inner_code' => $categoryStoreDto->innerCode,
         ]);

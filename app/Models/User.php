@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Http\Responses\ModelResponseInterface;
-use Database\Seeders\UserSeeder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -49,6 +48,7 @@ final class User extends Authenticatable implements MustVerifyEmail, ModelRespon
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**

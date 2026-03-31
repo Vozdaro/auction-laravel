@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->create('users', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('users', function (Blueprint $table) {
                 $table->id();
                 $table->timestamps();
                 $table->string('name');
@@ -24,13 +24,13 @@ return new class extends Migration
                 $table->rememberToken();
             });
 
-            Schema::connection("mysql_$connectionPostfix")->create('password_reset_tokens', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('password_reset_tokens', function (Blueprint $table) {
                 $table->string('email')->primary();
                 $table->string('token');
                 $table->timestamp('created_at')->nullable();
             });
 
-            Schema::connection("mysql_$connectionPostfix")->create('sessions', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('sessions', function (Blueprint $table) {
                 $table->string('id')->primary();
                 $table->foreignId('user_id')->nullable()->index();
                 $table->string('ip_address', 45)->nullable();
@@ -47,9 +47,9 @@ return new class extends Migration
     public function down(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('users');
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('password_reset_tokens');
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('sessions');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('users');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('password_reset_tokens');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('sessions');
         }
     }
 };

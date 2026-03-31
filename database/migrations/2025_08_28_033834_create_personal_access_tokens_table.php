@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->create('personal_access_tokens', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('personal_access_tokens', function (Blueprint $table) {
                 $table->id();
                 $table->morphs('tokenable');
                 $table->text('name');
@@ -32,7 +32,7 @@ return new class extends Migration
     public function down(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('personal_access_tokens');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('personal_access_tokens');
         }
     }
 };

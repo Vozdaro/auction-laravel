@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
-    private const CATEGORIES = [
+    private const array CATEGORIES = [
         [
             'name'       => 'Доски и лыжи',
             'inner_code' => 'boards'

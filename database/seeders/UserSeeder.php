@@ -10,9 +10,9 @@ use Illuminate\Database\Seeder;
 
 final class UserSeeder extends Seeder
 {
-    public const ADMIN_EMAIL = 'admin1@gmail.com';
+    public const string ADMIN_EMAIL = 'admin1@gmail.com';
 
-    private const USERS = [
+    private const array USERS = [
         [
             'name'         => 'admin1',
             'email'        => self::ADMIN_EMAIL,
@@ -45,7 +45,7 @@ final class UserSeeder extends Seeder
     {
         foreach (self::USERS as $user) {
             $userStoreDto = UserStoreDto::fromArray($user);
-            $this->userService->store($userStoreDto);
+            $this->userService->store($userStoreDto, true);
         }
     }
 }

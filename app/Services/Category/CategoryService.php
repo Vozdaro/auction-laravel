@@ -37,7 +37,7 @@ final class CategoryService implements CategoryServiceInterface
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
             $category = $this->categoryRepository->store($categoryStoreDto, $connectionPostfix);
 
-            if ($connectionPostfix === 'master') {
+            if ($connectionPostfix === ReplicationPostfixEnum::Master->value) {
                 $masterCategory = $category;
             }
         }

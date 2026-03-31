@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Responses;
 
-//use App\Http\Responses\AccessToken\AccessTokenResponse;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractResponse
 {
-    public const string UNAUTHENTICATED_MESSAGE = 'Unauthenticated.1';
+    public const DATA_KEY = 'data';
 
     /**
      * @param Model|LengthAwarePaginator<int, ModelResponseInterface>|array<string, mixed> $data
@@ -34,16 +33,12 @@ abstract class AbstractResponse
      */
     protected static function wrap(array $data, int $status, ?LengthAwarePaginator $paginator = null): JsonResponse
     {
-        //        if (get_called_class() === AccessTokenResponse::class && $status === Response::HTTP_UNAUTHORIZED) {
-        //            $resp = ['message' => self::UNAUTHENTICATED_MESSAGE];
-        //        } else {
-
-        $resp = ['data' => $data];
+        $resp = compact('data');
 
         if (isset($paginator)) {
             $resp = [
                 'current_page'  => $paginator->currentPage(),
-                'data'          => $data,
+                self::DATA_KEY  => $data,
                 'links'         => $paginator->linkCollection(),
                 'prev_page_url' => $paginator->previousPageUrl(),
                 'next_page_url' => $paginator->nextPageUrl(),
@@ -51,7 +46,6 @@ abstract class AbstractResponse
                 'per_page'      => $paginator->perPage(),
             ];
         }
-        //        }
 
         return new JsonResponse($resp, $status);
     }

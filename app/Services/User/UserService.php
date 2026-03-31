@@ -11,34 +11,36 @@ use App\Models\UserProfile;
 use App\Services\User\Contracts\UserServiceInterface;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final class UserService implements UserServiceInterface
 {
     /**
      * @inheritDoc
+     * @throws Throwable
      */
-    public function store(UserStoreDto $userStoreDto): User
+    public function store(UserStoreDto $userStoreDto, bool $seedMode = false): User
     // todo: подумать над тем чтобы сделать метод store из всех репозиториев в абстрактный
     {
         $masterUser = null;
 
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            DB::connection("mysql_$connectionPostfix")->beginTransaction();
-            $user = User::on("mysql_$connectionPostfix")->create([
+            DB::connection("pgsql_$connectionPostfix")->beginTransaction();
+            $user = User::on("pgsql_$connectionPostfix")->create([
                 'name'     => $userStoreDto->name,
                 'email'    => $userStoreDto->email,
                 'password' => $userStoreDto->password,
-                'is_admin' => $userStoreDto->is_admin,
+                'is_admin' => $userStoreDto->is_admin
             ]);
 
-            $userProfile = UserProfile::on("mysql_$connectionPostfix")->create([
+            UserProfile::on("pgsql_$connectionPostfix")->create([
                 'user_id'      => $user->id,
                 'contact_info' => $userStoreDto->contact_info
             ]);
-            DB::connection("mysql_$connectionPostfix")->commit();
+            DB::connection("pgsql_$connectionPostfix")->commit();
 
-            if ($connectionPostfix === 'master') {
-                event(new Registered($user));
+            if ($connectionPostfix === ReplicationPostfixEnum::Master->value) {
+                !$seedMode && event(new Registered($user));
                 $masterUser = $user;
             }
         }

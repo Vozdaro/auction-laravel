@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Storage;
 final class LotService implements LotServiceInterface
 {
     public function __construct(
-        private LotRepositoryInterface $lotRepository
+        private readonly LotRepositoryInterface $lotRepository
     ) {
     }
 
-    private const LOT_PATH_PREFIX = 'public/lots/%s';
+    private const string LOT_PATH_PREFIX = 'public/lots/%s';
 
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Auth\UserStoreRequest;
 use App\Http\Responses\User\UserResponse;
 use App\Services\User\Contracts\UserServiceInterface;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,9 @@ final class RegisteredUserApiController extends AbstractController
     ) {
     }
 
+    /**
+     * @throws Exception
+     */
     #[OA\Post(path: '/api/v1/register', summary: 'Creates a new user.', tags: ['Auth'])]
     #[OA\RequestBody(required: true, content: new OA\MediaType(mediaType: 'application/json', schema: new OA\Schema(properties: [
         new OA\Property(property: 'email', type: 'string'),

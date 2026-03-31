@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->create('cache', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('cache', function (Blueprint $table) {
                 $table->string('key')->primary();
                 $table->mediumText('value');
                 $table->integer('expiration');
             });
 
-            Schema::connection("mysql_$connectionPostfix")->create('cache_locks', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('cache_locks', function (Blueprint $table) {
                 $table->string('key')->primary();
                 $table->string('owner');
                 $table->integer('expiration');
@@ -33,8 +33,8 @@ return new class extends Migration
     public function down(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('cache');
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('cache_locks');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('cache');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('cache_locks');
         }
     }
 };

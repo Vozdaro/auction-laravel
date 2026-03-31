@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->create('jobs', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('jobs', function (Blueprint $table) {
                 $table->id();
                 $table->string('queue')->index();
                 $table->longText('payload');
@@ -23,7 +23,7 @@ return new class extends Migration
                 $table->unsignedInteger('created_at');
             });
 
-            Schema::connection("mysql_$connectionPostfix")->create('job_batches', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('job_batches', function (Blueprint $table) {
                 $table->string('id')->primary();
                 $table->string('name');
                 $table->integer('total_jobs');
@@ -36,7 +36,7 @@ return new class extends Migration
                 $table->integer('finished_at')->nullable();
             });
 
-            Schema::connection("mysql_$connectionPostfix")->create('failed_jobs', function (Blueprint $table) {
+            Schema::connection("pgsql_$connectionPostfix")->create('failed_jobs', function (Blueprint $table) {
                 $table->id();
                 $table->timestamp('failed_at')->useCurrent();
                 $table->string('uuid')->unique();
@@ -54,9 +54,9 @@ return new class extends Migration
     public function down(): void
     {
         foreach (ReplicationPostfixEnum::toArray() as $connectionPostfix) {
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('jobs');
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('job_batches');
-            Schema::connection("mysql_$connectionPostfix")->dropIfExists('failed_jobs');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('jobs');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('job_batches');
+            Schema::connection("pgsql_$connectionPostfix")->dropIfExists('failed_jobs');
         }
     }
 };
